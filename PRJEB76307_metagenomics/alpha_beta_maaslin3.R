@@ -25,7 +25,7 @@ metaphlan_path <- "C:/Users/Reilly/OneDrive - McGill University/PhD/Data/RP01-93
 metaphlan_table <- read.csv(metaphlan_path, row.names = 1, sep = '\t', check.names = FALSE)
 
 # Import the metadata associated with the study
-metadata_path <- "C:/Users/Reilly/OneDrive - McGill University/PhD/Data/RP01-93 CC Clinical Trial Fecal Extraction of Metabolites 20240509/RP01-93 20260508 Marette CC Metaphlan Megahit/maaslin3/RP01-93_sample_metadata.txt"
+metadata_path <- "C:/Users/Reilly/OneDrive - McGill University/PhD/Data/RP01-93 CC Clinical Trial Fecal Extraction of Metabolites 20240509/RP01-93 20260508 Marette CC Metaphlan Megahit/maaslin3/sample_metadata.txt"
 metadata_table <- read.csv(metadata_path, row.names = 1, sep = '\t', check.names = FALSE)
 
 # Add a sample_id column based on the rowname
