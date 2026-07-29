@@ -1,6 +1,7 @@
 #!/bin/bash
 # Log in to the Digital Research Alliance of Canada Cluster (Narval)
 
+# From the login node (internet access needed)
 # Move to the scratch directory and create a directory for all UHGP data
 cd $SCRATCH
 mkdir -p uhgp
@@ -9,8 +10,7 @@ cd uhgp
 # Download the required UHGP data and metadata (protein clusters at 100 and 95 percent identity)
 parallel wget ::: https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/human-gut/v2.0.2/protein_catalogue/uhgp-100.tar.gz https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/human-gut/v2.0.2/protein_catalogue/uhgp-95.tar.gz https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/human-gut/v2.0.2/genomes-all_metadata.tsv
 
-# Start an interactive job using the following request
-salloc --time=2:00:00 --mem=32G
+# Start an interactive job before proceeding with the following steps
 
 # Unzip the tar.gz files and delete the gz files afterwards
 tar -xvf uhgp-100.tar.gz
