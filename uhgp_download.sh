@@ -1,4 +1,4 @@
-# Login to the Digital Research Alliance of Canada Cluster (Narval)
+# Log in to the Digital Research Alliance of Canada Cluster (Narval)
 
 # Move to the scratch directory and create a directory for all UHGP data
 cd $SCRATCH
