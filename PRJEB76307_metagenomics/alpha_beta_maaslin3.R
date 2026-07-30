@@ -1,12 +1,7 @@
 # Make sure R version >= 4.4
 # Current version 4.4.2
 
-# Download required packages (commented out)
-# if (!require("BiocManager", quietly = TRUE))
-#   install.packages("BiocManager")
-# BiocManager::install("remotes")
-# BiocManager::install("biobakery/maaslin3")
-
+# Ensure that "remotes" and "biobakery/maaslin3" are already installed via BiocManager
 # Load libraries
 library(maaslin3)
 library(dplyr)
