@@ -13,11 +13,13 @@ date
 module load megahit/1.2.9 StdEnv/2023
 echo "Modules loaded"
 
-# Set variable for the directory containing raw reads
+# Set variables for the directory containing raw reads and the sample_id
 READ_DIR=$SCRATCH/RP01-94_MO67_MGX/fastp_bt2_qc/bt2_out/
+SAMPLE_ID="MO67_A-D"
+
 # Set variables for R1 and R2
-R1=$READ_DIR/MO67_A-D_bt2_t2t_unaligned_R1.fastq.gz
-R2=$READ_DIR/MO67_A-D_bt2_t2t_unaligned_R2.fastq.gz
+R1=$READ_DIR/${SAMPLE_ID}_bt2_t2t_unaligned_R1.fastq.gz
+R2=$READ_DIR/${SAMPLE_ID}_bt2_t2t_unaligned_R2.fastq.gz
 
 # DO NOT create a new directory for megahit - it will create one in the --out-dir portion and cannot already exist
 
