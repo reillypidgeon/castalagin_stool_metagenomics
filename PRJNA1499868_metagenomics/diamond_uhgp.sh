@@ -3,7 +3,7 @@
 #SBATCH --job-name=MO67_diamond_uhgp
 #SBATCH --output=%x.out
 #SBATCH --error=%x.err
-#SBATCH --time=00:30:00
+#SBATCH --time=02:00:00
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=48G
 
