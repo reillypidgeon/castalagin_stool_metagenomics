@@ -14,7 +14,7 @@ date
 READ_DIR=$HOME/projects/def-castagne/rpidgeon/RP01-94_20240903_MO67_MGX_MTX
 R1=$READ_DIR/NS.X0107.008.IDT_i7_97---IDT_i5_97.MO67_A-D_R1.fastq.gz
 R2=$READ_DIR/NS.X0107.008.IDT_i7_97---IDT_i5_97.MO67_A-D_R2.fastq.gz
-SAMPLE_ID="MO67_A-D"
+SAMPLE_ID="MO67"
 OUT_DIR=$SCRATCH/RP01-94_MO67_MGX/fastp_bt2_qc
 mkdir -p $OUT_DIR
 #===========================================================================
