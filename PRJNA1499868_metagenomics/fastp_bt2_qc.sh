@@ -1,11 +1,12 @@
 #!/bin/bash
 
 #SBATCH --job-name=fastp_bt2
+#SBATCH --output=%x.out
+#SBATCH --error=%x.err
 #SBATCH --time=14:00:00
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=100G
-#SBATCH --output=%x.out
-#SBATCH --error=%x.err
+
 
 date
 
