@@ -15,7 +15,7 @@ echo "Modules loaded"
 
 # Set variables for the directory containing raw reads and the sample_id
 READ_DIR=$SCRATCH/RP01-94_MO67_MGX/fastp_bt2_qc/bt2_out/
-SAMPLE_ID="MO67_A-D"
+SAMPLE_ID="MO67"
 
 # Set variables for R1 and R2
 R1=$READ_DIR/${SAMPLE_ID}_bt2_t2t_unaligned_R1.fastq.gz
@@ -25,7 +25,7 @@ R2=$READ_DIR/${SAMPLE_ID}_bt2_t2t_unaligned_R2.fastq.gz
 
 cd $SCRATCH/RP01-94_MO67_MGX/
 
-# Run megahit on the MO67_A-D_bt2_unmapped reads
+# Run megahit on the MO67 bt2 unmapped reads
 megahit -1 $R1 -2 $R2 \
 --presets meta-sensitive \
 --continue \
