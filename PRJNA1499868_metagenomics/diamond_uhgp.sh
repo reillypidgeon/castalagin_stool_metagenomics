@@ -9,6 +9,9 @@
 
 date
 
+# The purpose of this workflow is to look for matches to known castalagin/ellagic acid/urolithin-metabolizing proteins in the MO67 MGX protein catalog
+# The top hits are then searched against the Unified Human Gastrointestinal Proteome (UHGP) to assign preliminary taxonomy (according to the GTDB r202)
+
 # Load the required modules for diamond
 module load diamond/2.1.11 StdEnv/2023 python/3.13.2
 echo "Modules loaded"
