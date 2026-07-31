@@ -3,7 +3,7 @@
 #SBATCH --time=20:00:00
 #SBATCH --cpus-per-task=12
 #SBATCH --mem=120G
-#SBATCH --job-name=MO67_megahit
+#SBATCH --job-name=MO67_megahit_prodigal
 #SBATCH --output=%x.out
 #SBATCH --error=%x.err
 
@@ -33,5 +33,31 @@ megahit -1 $R1 -2 $R2 \
 -t $SLURM_CPUS_PER_TASK \
 --out-dir megahit_out
 
+# Rename megahit output
+mv megahit_out/final.contigs.fa megahit_out/{SAMPLE_ID}_final.contigs.fa
+
 echo "Finished running megahit"
+date
+
+echo "Starting prodigal workflow from megahit assembly of MO67 MGX sample"
+
+# Load required modules for megahit
+module load prodigal/2.6.3
+echo "Modules loaded"
+
+# Set variable for the directory containing bowtie2_unmapped reads
+CONTIG_DIR=$SCRATCH/RP01-94_MO67_MGX/megahit_out
+OUT_DIR=$SCRATCH/RP01-94_MO67_MGX/prodigal_out
+mkdir -p $OUT_DIR
+
+# Run prodigal on the contigs
+# Uses the Standard Bacteria/Archaea translation table (11)
+prodigal -i $CONTIG_DIR/{SAMPLE_ID}_final.contigs.fa \
+-p meta \
+-g 11 \
+-a $OUT_DIR/{SAMPLE_ID}_prodigal_proteins.faa \
+-d $OUT_DIR/{SAMPLE_ID}_prodigal_genes.fna \
+-o $OUT_DIR/{SAMPLE_ID}_prodigal_annot.gff
+
+echo "Finished running prodigal"
 date
