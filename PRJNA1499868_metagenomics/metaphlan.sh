@@ -13,7 +13,7 @@ echo "Modules loaded"
 
 # Set variables for the directory containing raw reads and the sample_id
 READ_DIR=$SCRATCH/RP01-94_MO67_MGX/fastp_bt2_qc/bt2_out/
-SAMPLE_ID="MO67_A-D"
+SAMPLE_ID="MO67"
 
 # Create new directory for metaphlan_4.1.1 output
 mkdir -p $SCRATCH/RP01-94_MO67_MGX/metaphlan_out
