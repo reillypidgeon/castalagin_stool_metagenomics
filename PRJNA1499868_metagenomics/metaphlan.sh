@@ -1,11 +1,13 @@
 #!/bin/bash
 
-#SBATCH --time=6:00:00
-#SBATCH --cpus-per-task=8
-#SBATCH --mem=100G
 #SBATCH --job-name=MO67_metaphlan
 #SBATCH --output=%x.out
 #SBATCH --error=%x.err
+#SBATCH --time=6:00:00
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=100G
+
+date
 
 # Load the required modules
 module load gcc blast samtools bedtools python/3.13.2 bowtie2 StdEnv/2023
