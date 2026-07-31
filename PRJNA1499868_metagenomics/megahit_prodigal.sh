@@ -1,11 +1,13 @@
 #!/bin/bash
 
-#SBATCH --time=20:00:00
-#SBATCH --cpus-per-task=12
-#SBATCH --mem=120G
 #SBATCH --job-name=MO67_megahit_prodigal
 #SBATCH --output=%x.out
 #SBATCH --error=%x.err
+#SBATCH --time=20:00:00
+#SBATCH --cpus-per-task=12
+#SBATCH --mem=120G
+
+
 
 date
 
