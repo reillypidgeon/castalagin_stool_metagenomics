@@ -7,8 +7,6 @@
 #SBATCH --cpus-per-task=12
 #SBATCH --mem=120G
 
-
-
 date
 
 # Load the required modules
