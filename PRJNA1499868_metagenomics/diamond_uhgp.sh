@@ -9,7 +9,7 @@
 
 date
 
-# The purpose of this workflow is to look for matches to known castalagin/ellagic acid/urolithin-metabolizing proteins in the MO67 MGX protein catalog
+# The purpose of this workflow is to look for matches to known castalagin/ellagic acid/urolithin-metabolizing proteins in the MO67 MGX protein catalog (prodigal output)
 # The top hits are then searched against the Unified Human Gastrointestinal Proteome (UHGP) to assign preliminary taxonomy (according to the GTDB r202)
 
 # Load the required modules for diamond
@@ -19,7 +19,7 @@ echo "Modules loaded"
 # These are the directory variables and sample_id
 OUT_DIR=$SCRATCH/RP01-94_MO67_MGX # General output directory for each tool
 PRODIGAL_DIR=$OUT_DIR/prodigal_out
-SAMPLE_ID="MO67_A-D"
+SAMPLE_ID="MO67"
 
 # Create output directory for diamond output
 DIAMOND_OUT=$OUT_DIR/diamond_out
@@ -29,8 +29,8 @@ mkdir -p $DIAMOND_OUT
 PROT=$PRODIGAL_DIR/${SAMPLE_ID}_prodigal_proteins.faa
 QUERY=$OUT_DIR/RP01-94_queries.faa # This fasta contains the sequences of interest to look for in each protein set from prodigal
 
-DB_PREFIX="${DIAMOND_OUT}/MO67_prot_db"
-HITS_TSV="${DIAMOND_OUT}/MO67_hits.tsv"
+DB_PREFIX="${DIAMOND_OUT}/${SAMPLE_ID}_prot_db"
+HITS_TSV="${DIAMOND_OUT}/${SAMPLE_ID}_hits.tsv"
 
 # As a preventative measure, remove all * (stops) from the PROT fasta
 PROT_CLEAN="$PRODIGAL_DIR/${SAMPLE_ID}_prodigal_proteins_no_stop.faa"
@@ -106,6 +106,7 @@ best_hits_df = best_hits_df.reset_index(drop=True)
 best_hits_df.to_csv('MO67_best_hits.tsv', sep="\t", index=False)
 
 # Now generate a fasta file from the best hits dataframe
+# The sseqid and qseqid will be joined by a dash in the fasta headers
 with open("MO67_best_hits.fasta", "w") as fasta:
 	for _, row in best_hits_df.iterrows():
 		fasta.write(f">{row["sseqid"]}-{row["qseqid"]}\n")
@@ -114,17 +115,13 @@ with open("MO67_best_hits.fasta", "w") as fasta:
 print(f"Created fasta output.")
 EOF
 
-# Create output directory for diamond output
+# Create output directory for diamond_uhgp output
 DIAMOND_OUT=$OUT_DIR/diamond_uhgp_out
 mkdir -p $DIAMOND_OUT
 
-# Set the DIAMOND tool thresholds
-MIN_ID=60 # Could filter more stringently afterwards
-KVAL=0   # unlimited hits per query per sample - could limit to a certain number if needed
-
 # Set the DIAMOND tool input, database, and output file names
-QUERY="$HITS_DIR/MO67_best_hits.fasta"
-DIAMOND_DB="$SCRATCH/uhgp" # Note that this DB has already been created (see repository download_scipts/uhgp_download.sh)
+QUERY="$HITS_DIR/${SAMPLE_ID}_best_hits.fasta"
+DIAMOND_DB="$SCRATCH/uhgp" # Note that this DB has already been created (see castalagin_stool_metagenomics/download_scipts/uhgp_download.sh)
 HITS_TSV="$DIAMOND_OUT/all_hits_uhgp-100.tsv"
 
 # Copy the UHGP metadata to the output directory
