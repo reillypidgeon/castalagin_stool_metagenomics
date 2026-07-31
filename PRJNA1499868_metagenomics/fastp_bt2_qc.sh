@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=fastp_bt2
+#SBATCH --job-name=MO67_fastp_bt2
 #SBATCH --output=%x.out
 #SBATCH --error=%x.err
 #SBATCH --time=14:00:00
