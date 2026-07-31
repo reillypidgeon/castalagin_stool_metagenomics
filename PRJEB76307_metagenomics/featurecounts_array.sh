@@ -131,6 +131,6 @@ if [[ ! -f "${LEN_FILE}" ]]; then
 fi
 
 # Run the Python conversion script by taking input from the Unix environment
-python featurecounts_to_RPKM_TPM_RP01-93.py $FC_FILE $LEN_FILE $OUT_FILE $P_ID $SAMPLE_ID
+python featurecounts_to_RPKM_TPM.py $FC_FILE $LEN_FILE $OUT_FILE $P_ID $SAMPLE_ID
 
 echo "Finished converting ${SAMPLE_ID} to RPKM and TPM"
