@@ -48,7 +48,7 @@ fastp -i $R1 -I $R2 --verbose \
 --html "${SAMPLE_ID}_fastp.html" --json "${SAMPLE_ID}_fastp.json"
 
 echo "Now running FastQC on trimmed reads"
-fastqc "${SAMPLE_ID}_trim_R1.fastq.gz" "${SAMPLE_ID}_trim_R2.fastq.gz" \
+fastqc "$FASTP_DIR/${SAMPLE_ID}_trim_R1.fastq.gz" "$FASTP_DIR/${SAMPLE_ID}_trim_R2.fastq.gz" \
 --outdir $FASTQC_DIR \
 --threads $SLURM_CPUS_PER_TASK --noextract
 
@@ -62,8 +62,8 @@ echo "Modules loaded"
 # Map trimmed reads to the human genome (GCF_009914755.1_T2T-CHM13v2.0_genomic.fna)
 # Output both aligned and unaligned reads (as fastq.gz)
 bowtie2 -x "$BT2_DB/t2t" -p $SLURM_CPUS_PER_TASK \
--1 "$FASTP_OUT/${SAMPLE_ID}_trim_R1.fastq.gz" \
--2 "$FASTP_OUT/${SAMPLE_ID}_trim_R2.fastq.gz" \
+-1 "$FASTP_DIR/${SAMPLE_ID}_trim_R1.fastq.gz" \
+-2 "$FASTP_DIR/${SAMPLE_ID}_trim_R2.fastq.gz" \
 --un-conc-gz "$BT2_DIR/${SAMPLE_ID}_bt2_t2t_unaligned_R%.fastq.gz" \
 --al-conc-gz "$BT2_DIR/${SAMPLE_ID}_bt2_t2t_aligned_R%.fastq.gz" \
 --fr --quiet
