@@ -13,8 +13,8 @@ date
 # This script works for a single sample
 # Note that portability is not the main objective here, but future changes will aim to improve this
 
+# Define variables
 #===========================================================================
-# Define variables and paths for this specific sample
 # These could become positional arguments or optional arguments later on...
 READ_DIR="raw_reads"
 R1="$READ_DIR/NS.X0107.008.IDT_i7_97---IDT_i5_97.MO67_A-D_R1.fastq.gz"
