@@ -184,6 +184,6 @@ EOF
 echo "Finished merging"
 date
 
-python3 string_pattern_mapping.py "best_hits_uhgp-100_metadata.tsv" "../pattern_mapping.tsv" "best_hits_uhgp-100_metadata_pattern.tsv"
+python3 ../string_pattern_mapping.py "best_hits_uhgp-100_metadata.tsv" "../pattern_mapping.tsv" "best_hits_uhgp-100_metadata_pattern.tsv"
 
 echo "Finished annotating"
