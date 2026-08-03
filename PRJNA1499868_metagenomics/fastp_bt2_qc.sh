@@ -45,7 +45,7 @@ fastp -i $R1 -I $R2 --verbose \
 --cut_front --cut_tail --cut_window_size 4 \
 --cut_mean_quality 20 --length_required 100 \
 --thread $SLURM_CPUS_PER_TASK \
---html "${SAMPLE_ID}_fastp.html" --json "${SAMPLE_ID}_fastp.json"
+--html "$FASTP_DIR/${SAMPLE_ID}_fastp.html" --json "$FASTP_DIR/${SAMPLE_ID}_fastp.json"
 
 echo "Now running FastQC on trimmed reads"
 fastqc "$FASTP_DIR/${SAMPLE_ID}_trim_R1.fastq.gz" "$FASTP_DIR/${SAMPLE_ID}_trim_R2.fastq.gz" \
