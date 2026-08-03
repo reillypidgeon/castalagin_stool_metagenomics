@@ -20,12 +20,14 @@ echo "Modules loaded"
 #===========================================================================
 PRODIGAL_DIR="prodigal_out"
 SAMPLE_ID="MO67"
+export SAMPLE_ID
 QUERY="RP01-94_queries.faa"
 PROT="$PRODIGAL_DIR/${SAMPLE_ID}_prodigal_proteins.faa"
 
 # Create output directory for diamond output
 DIAMOND_DIR="diamond_out"
 mkdir -p $DIAMOND_DIR
+export DIAMOND_DIR
 
 # Prefix and output table file names
 DB_PREFIX="${DIAMOND_DIR}/${SAMPLE_ID}_prot_db"
@@ -65,6 +67,7 @@ if [ ! -f "${DB_PREFIX}.dmnd" ]; then
     --in "$PROT_CLEAN" \
     -d "$DB_PREFIX"
 fi
+#===========================================================================
 
 # Now run DIAMOND using the built diamond DB
 echo "Running DIAMOND"
@@ -89,9 +92,17 @@ echo "Modules loaded"
 python3 << 'EOF'
 import pandas as pd
 from pathlib import Path
+import glob
+import os
+
+# Get the sample_id
+diamond_dir = os.getenv("DIAMOND_DIR")
+sample_id = os.getenv("SAMPLE_ID")
+
+df_path = f"{diamond_dir}/{sample_id}_hits.tsv"
 
 # Import the dataframe and add titles to the columns
-df = pd.read_csv("diamond_out/MO67_hits.tsv", sep="\t", header=None,
+df = pd.read_csv(df_path, sep="\t", header=None,
 	names=["qseqid","sseqid","pident","ppos","length","qlen","slen",
   "qstart","qend","sstart","send","evalue","bitscore","full_qseq","full_sseq"])
 
@@ -100,11 +111,11 @@ best_hits_df = df.loc[df.groupby('sseqid')['pident'].idxmax()]
 best_hits_df = best_hits_df.reset_index(drop=True)
 
 # Export table to TSV
-best_hits_df.to_csv('MO67_best_hits.tsv', sep="\t", index=False)
+best_hits_df.to_csv(f"{diamond_dir}/{sample_id}_best_hits.tsv", sep="\t", index=False)
 
 # Now generate a fasta file from the best hits dataframe
 # The sseqid and qseqid will be joined by a dash in the fasta headers
-with open("MO67_best_hits.fasta", "w") as fasta:
+with open(f"{diamond_dir}/{sample_id}_best_hits.fasta", "w") as fasta:
 	for _, row in best_hits_df.iterrows():
 		fasta.write(f">{row["sseqid"]}-{row["qseqid"]}\n")
 		fasta.write(f"{row["full_sseq"]}\n")
@@ -112,21 +123,24 @@ with open("MO67_best_hits.fasta", "w") as fasta:
 print(f"Created fasta output.")
 EOF
 
+#===========================================================================
 # Create output directory for diamond_uhgp output
-DIAMOND_DIR="diamond_uhgp_out"
-mkdir -p $DIAMOND_DIR
+DIAMOND_UHGP_DIR="diamond_uhgp_out"
+mkdir -p $DIAMOND_UHGP_DIR
 
 # Set the DIAMOND tool input, database, and output file names
-QUERY="$HITS_DIR/${SAMPLE_ID}_best_hits.fasta"
-DIAMOND_DB="$SCRATCH/uhgp" # Note that this DB has already been created (see castalagin_stool_metagenomics/download_scipts/uhgp_download.sh)
-HITS_TSV="$DIAMOND_DIR/all_hits_uhgp-100.tsv"
+QUERY="$DIAMOND_DIR/${SAMPLE_ID}_best_hits.fasta"
+DIAMOND_DB="$SCRATCH/uhgp" # see castalagin_stool_metagenomics/download_scipts/uhgp_download.sh
+HITS_TSV="$DIAMOND_UHGP_DIR/all_hits_uhgp-100.tsv"
+#===========================================================================
 
 # Copy the UHGP metadata to the output directory
-# Metadata copied and renamed from: https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/human-gut/v2.0/genomes-all_metadata.tsv	
+# Metadata copied and renamed from: 
+# https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/human-gut/v2.0/genomes-all_metadata.tsv	
 
-if [ ! -f "$DIAMOND_DIR/uhgp_genomes_all_metadata.tsv" ]; then
+if [ ! -f "$DIAMOND_UHGP_DIR/uhgp_genomes_all_metadata.tsv" ]; then
     echo "UHGP metadata file does not exist. Copying from ${DIAMOND_DB}"
-    cp $DIAMOND_DB/uhgp_genomes_all_metadata.tsv $DIAMOND_DIR
+    cp $DIAMOND_DB/uhgp_genomes_all_metadata.tsv $DIAMOND_UHGP_DIR
 fi
 
 # Run DIAMOND using the uhgp-100 DB
@@ -143,9 +157,7 @@ diamond blastp \
 
 echo "Finished search against UHGP-100"
 
-echo "Starting merge"
-
-cd $DIAMOND_DIR
+cd $DIAMOND_UHGP_DIR
 
 python3 << 'EOF'
 import pandas as pd
@@ -181,6 +193,8 @@ EOF
 echo "Finished merging"
 date
 
-python3 ../string_pattern_mapping.py "best_hits_uhgp-100_metadata.tsv" "../pattern_mapping.tsv" "best_hits_uhgp-100_metadata_pattern.tsv"
+cd ..
 
-echo "Finished annotating"
+python3 string_pattern_mapping.py "$DIAMOND_UHGP_DIR/best_hits_uhgp-100_metadata.tsv" "pattern_mapping.tsv" "$DIAMOND_UHGP_DIR/best_hits_uhgp-100_metadata_operon.tsv"
+
+echo "Finished annotating the UHGP best hits table with gene and operon information"
