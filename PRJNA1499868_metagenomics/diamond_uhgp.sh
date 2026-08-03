@@ -120,7 +120,7 @@ with open(f"{diamond_dir}/{sample_id}_best_hits.fasta", "w") as fasta:
 		fasta.write(f">{row["sseqid"]}-{row["qseqid"]}\n")
 		fasta.write(f"{row["full_sseq"]}\n")
 
-print(f"Created fasta output.")
+print(f"Created fasta output for {sample_id}")
 EOF
 
 #===========================================================================
@@ -157,6 +157,8 @@ diamond blastp \
 
 echo "Finished search against UHGP-100"
 
+
+# Annotate the UHGP output table
 cd $DIAMOND_UHGP_DIR
 
 python3 << 'EOF'
