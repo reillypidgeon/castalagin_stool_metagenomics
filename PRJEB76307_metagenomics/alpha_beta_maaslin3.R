@@ -10,26 +10,24 @@ library(stringr)
 library(vegan)
 library(ggplot2)
 
-setwd("C:/Users/Reilly/OneDrive - McGill University/PhD/Data/RP01-93 CC Clinical Trial Fecal Extraction of Metabolites 20240509/RP01-93 20260508 Marette CC Metaphlan Megahit/maaslin3")
-
 #===================== Table Import and Setup ============================================================================
 
-
+# Running this script from a project directory that contains tool output directories 
 # Import the full GTDB converted table for the study (metaphlan4 output)
-metaphlan_path <- "C:/Users/Reilly/OneDrive - McGill University/PhD/Data/RP01-93 CC Clinical Trial Fecal Extraction of Metabolites 20240509/RP01-93 20260508 Marette CC Metaphlan Megahit/metaphlan_out/merged_metaphlan_GTDB.tsv"
+metaphlan_path <- "metaphlan_out/merged_metaphlan_GTDB.tsv"
 metaphlan_table <- read.csv(metaphlan_path, row.names = 1, sep = '\t', check.names = FALSE)
 
-# Import the metadata associated with the study
-metadata_path <- "C:/Users/Reilly/OneDrive - McGill University/PhD/Data/RP01-93 CC Clinical Trial Fecal Extraction of Metabolites 20240509/RP01-93 20260508 Marette CC Metaphlan Megahit/maaslin3/sample_metadata.tsv"
+# Import the metadata associated with the study (already in the maaslin3 output directory)
+metadata_path <- "maaslin3_out/sample_metadata.tsv"
 metadata_table <- read.csv(metadata_path, row.names = 1, sep = '\t', check.names = FALSE)
 
-# Add a sample_id column based on the rowname
+# Add a sample_id column based on the row name
 metadata_table$sample_id <- rownames(metadata_table)
 
 # Also add a "P" to each patient number to keep as a categorical variable
 metadata_table$patient <- paste0("P", metadata_table$patient)
 
-# Only keep the rows with species flags (s__)
+# Only keep the rows with species flags in the metaphlan table (s__)
 taxa <- rownames(metaphlan_table)
 taxa_species <- grepl("s__", taxa)
 print(taxa)
@@ -47,7 +45,7 @@ rownames(metaphlan_table_species) <- taxa_rename
 # Transpose the metaphlan_table_species
 metaphlan_table_species_t <- as.data.frame(t(metaphlan_table_species))
 
-# Now, all tables have been appropriately set up for downstream analyses...
+# Now, all tables have been appropriately set up for downstream analyses
 
 #===================== Vegan - Alpha Diversity ============================================================================
 
@@ -64,7 +62,7 @@ ggplot(metadata_table, aes(treatment, richness, group = patient)) + geom_point(s
 # Statistics on alpha diversity metrics (Wilcoxon nonparametric test)
 with(metadata_table, wilcox.test(shannon[treatment == "pre"], shannon[treatment == "post"], paired = TRUE))
 with(metadata_table, wilcox.test(simpson[treatment == "pre"], simpson[treatment == "post"], paired = TRUE))
-with(metadata_table, wilcox.test(richness[treatment == "pre"], richness[treatment == "post"], paired = TRUE)) # Note that there are ties here which don't allow for proper p value calc
+with(metadata_table, wilcox.test(richness[treatment == "pre"], richness[treatment == "post"], paired = TRUE)) # Note that there are ties here which don't allow for proper p value calculation
 
 #===================== Vegan - Beta Diversity ============================================================================
 
@@ -88,6 +86,7 @@ ordination_jaccard <- data.frame(sample_id = rownames(metadata_table),
 ordination_r_aitchison <- data.frame(sample_id = rownames(metadata_table),
                               PCoA1 = pcoa_r_aitchison$points[,1], 
                               PCoA2 = pcoa_r_aitchison$points[,2])
+
 # Merge ordination with metadata
 ordination_bray_merge <- left_join(metadata_table, ordination_bray, by = "sample_id")
 ordination_jaccard_merge <- left_join(metadata_table, ordination_jaccard, by = "sample_id")
@@ -132,13 +131,13 @@ metadata_table_maaslin$reads <- as.numeric(metadata_table_maaslin$reads)
 
 patient_codes <- metadata_table$patient
 
-setwd("C:/Users/Reilly/Desktop")
+setwd("maaslin3_out/")
 
 # Run maaslin3
 fit <- maaslin3(
   input_data = metaphlan_table_species_t,
   input_metadata = metadata_table_maaslin,
-  output = "maaslin3_species_out_20260729",
+  output = "maaslin3_species_out",
   normalization = "TSS",
   transform = "LOG",
   augment = TRUE,
