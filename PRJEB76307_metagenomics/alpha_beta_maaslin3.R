@@ -143,7 +143,5 @@ fit <- maaslin3(
   augment = TRUE,
   standardize = TRUE,
   formula = "~ treatment + reads + (1|patient)",
-  min_prevalence = 0.1,
-  min_abundance = 1e-4,
   max_pngs = 30
 )
