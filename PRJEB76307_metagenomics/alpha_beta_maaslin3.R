@@ -143,5 +143,6 @@ fit <- maaslin3(
   augment = TRUE,
   standardize = TRUE,
   formula = "~ treatment + reads + (1|patient)",
+  small_random_effects = TRUE,
   max_pngs = 30
 )
