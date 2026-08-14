@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #SBATCH --job-name=metaphlan
 #SBATCH --output=%x.out
