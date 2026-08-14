@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #SBATCH --job-name=fastp_bt2_qc
 #SBATCH --output=%x_%A_%a.out
