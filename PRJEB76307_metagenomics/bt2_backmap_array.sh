@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #SBATCH --job-name=bt2_backmap
 #SBATCH --output=%x_%A_%a.out
