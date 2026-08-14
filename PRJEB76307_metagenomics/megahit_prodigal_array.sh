@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #SBATCH --job-name=megahit_prodigal_co
 #SBATCH --output=%x_%A_%a.out
