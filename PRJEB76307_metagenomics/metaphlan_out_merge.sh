@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 cd $SCRATCH/RP01-93_CC_CT/RP01-93_CC_CT_analysis/
 
