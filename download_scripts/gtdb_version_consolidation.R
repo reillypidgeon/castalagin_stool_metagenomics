@@ -4,8 +4,6 @@ library(readr)
 # Go to the directory that contains all the metadata files for different GTDB release versions
 # These metadata tables were downloaded from: https://data.gtdb.ecogenomic.org/releases/
 
-setwd("C:/Users/Reilly/Desktop")
-
 # Load the metadata tables for each GTDB release version
 
 df_r202 <- read.csv("bac120_metadata_r202.tsv", sep = '\t') # Released 2021-04-26
