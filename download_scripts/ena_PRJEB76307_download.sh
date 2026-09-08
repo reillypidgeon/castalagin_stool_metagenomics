@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Log in to the Digital Research Alliance of Canada Cluster (Narval)
 
 # From the login node (internet access needed)
@@ -15,7 +15,7 @@ cat $SCRATCH/RP01-93_CC_CT/ena_PRJEB76307_urls.txt | parallel -j 8 wget -c -nc
 # Start an interactive job before proceeding with the following steps
 
 # This portion of the script renames directories and files
-# It extracts the useful sample name and id, then renames the parent folder (containing read pairs) as well as the read pairs themselves
+# It extracts the useful sample name and ID, then renames the parent folder (containing read pairs) as well as the read pairs themselves
 
 # Samples are in individual directories (e.g., ERR13245346 with long file names like NS.LH00147_0019.003.IDT_i7_196---IDT_i5_196.021_V1_R1.fastq.gz and NS.LH00147_0019.003.IDT_i7_196---IDT_i5_196.021_V1_R2.fastq.gz)
 # Use a for loop to extract the sample name, then rename both the parent directory and the samples
