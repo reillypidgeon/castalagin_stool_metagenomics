@@ -8,7 +8,6 @@
 #SBATCH --mem=100G
 
 set -euo pipefail
-date
 
 # This script works for a single sample
 # Note that portability is not the main objective here, but future changes will aim to improve this
@@ -52,7 +51,6 @@ fastqc "$FASTP_DIR/${SAMPLE_ID}_trim_R1.fastq.gz" "$FASTP_DIR/${SAMPLE_ID}_trim_
 --outdir $FASTQC_DIR \
 --threads $SLURM_CPUS_PER_TASK --noextract
 
-date
 echo "Now moving on to the removal of host reads using bowtie2"
 
 # Load the required modules
