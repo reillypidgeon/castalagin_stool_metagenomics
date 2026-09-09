@@ -1,15 +1,14 @@
-# Code Repository for Giurleo et al. bioRxiv, 2026)
-Code used to analyze metagenomic samples derived from human fecal samples (Giurleo et al., Unpublished, 202_).<br>
+# Code Repository for Giurleo et al. bioRxiv, 2026
+Code used to analyze metagenomic samples derived from human fecal samples (Giurleo et al., Unpublished, 2026).<br>
 The general workflows involve read QC, human read removal, contig assembly, protein prediction, and protein searching against databases.
 <br>
 
 >[!IMPORTANT]
 > - Scripts used here work within the Digital Research Alliance of Canada (DRAC) Narval cluster <br>
 > - Scripts were not optimized for portability across systems since most tools are already made available by DRAC
-<br>
 
 ## Citation
-DOI for BioRxiv or publication <br />
+DOI for BioRxiv or publication <br>
 
 ## Overview
 ### Tools and packages used in analyses
@@ -25,28 +24,27 @@ DOI for BioRxiv or publication <br />
   10. Diamond (version )
   11. MMSeqs2 (version )
   12. SciPy-Stack (version 2026a)
-<br />
 
 ### PRJEB76307_metagenomics
 Scripts, metadata, and tables used in the analysis of metagenomics sequencing data from 
-[Agrinier, A. L., et al. (2024). _Camu-camu decreases hepatic steatosis and liver injury markers in overweight, hypertriglyceridemic individuals: A randomized crossover trial_. Cell Rep Med 5(8): 101682.](https://doi.org/10.1016/j.xcrm.2024.101682) <br />
+[Agrinier, A. L., et al. (2024). _Camu-camu decreases hepatic steatosis and liver injury markers in overweight, hypertriglyceridemic individuals: A randomized crossover trial_. Cell Rep Med 5(8): 101682.](https://doi.org/10.1016/j.xcrm.2024.101682) <br>
 
->ENA accession: [PRJEB76307](https://www.ebi.ac.uk/ena/browser/view/PRJEB76307) <br />
->Clinical trial accession: [NCT04130321](https://clinicaltrials.gov/study/NCT04130321) <br />
-<br />
+>ENA accession: [PRJEB76307](https://www.ebi.ac.uk/ena/browser/view/PRJEB76307) <br>
+>Clinical trial accession: [NCT04130321](https://clinicaltrials.gov/study/NCT04130321) <br>
 
 ### PRJNA1499868_metagenomics
 Scripts, metadata, and tables used in the analysis of metagenomics sequencing data from fecal sample MO67 (healthy donor) <br />
 
->NCBI accession: PRJNA1499868 <br />
-<br />
+>NCBI accession: PRJNA1499868 <br>
 
 ### download_scripts
-This directory contains scripts used to set up databases ([UHGP](https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/human-gut/v2.0.2/protein_catalogue/) & [MetaPhlAn](https://cmprod1.cibio.unitn.it/biobakery4/metaphlan_databases/)) and download sequencing reads from the European Nucleotide Archive for PRJEB76307. <br />
-<br />
+This directory contains scripts used to set up databases (MetaPhlAn & UHGP) and download sequencing reads from the European Nucleotide Archive for PRJEB76307. <br>
 
-### LICENSE
-GNU GENERAL PUBLIC LICENSE (Version 3, 29 June 2007) <br />
+>[MetaPhlAn](https://cmprod1.cibio.unitn.it/biobakery4/metaphlan_databases/)
+>[UHGP](https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/human-gut/v2.0.2/protein_catalogue/)
+>
+## LICENSE
+GNU GENERAL PUBLIC LICENSE (Version 3, 29 June 2007) <br>
 
-Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/> <br />
+Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/> <br>
 Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.
