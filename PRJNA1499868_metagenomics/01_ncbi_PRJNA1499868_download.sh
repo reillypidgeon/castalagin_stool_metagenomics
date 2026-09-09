@@ -15,11 +15,13 @@ cd "${read_dir}"
 # Download the raw sequencing data from PRJNA1499868 using the NCBI sra-toolkit
 module load sra-toolkit
 
-prefetch SRR39796052 \
+accession="SRR39796052"
+
+prefetch "$accession" \
     --output-directory "${read_dir}"
     --max-size 100G
 
-vdb-validate "${read_dir}/SRR39796052"
+vdb-validate "${read_dir}/$accession"
 
 # Submit a scheduled job for FASTQ conversion
 sbatch --wait ncbi_PRJNA1499868_setup.slurm
