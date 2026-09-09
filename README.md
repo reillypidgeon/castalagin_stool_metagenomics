@@ -37,10 +37,21 @@ Scripts, metadata, and tables used in the analysis of metagenomics sequencing da
 
 >NCBI accession: PRJNA1499868 <br>
 
-### database_download_scripts <br>
+### database_download <br>
 This directory contains scripts for database setup. <br> 
 >[MetaPhlAn](https://cmprod1.cibio.unitn.it/biobakery4/metaphlan_databases/) <br>
 >[UHGP](https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/human-gut/v2.0.2/protein_catalogue/)
+
+## Usage
+As mentioned above, the scripts in this code repository were not optimized for portability. <br>
+To reuse the scripts as-is, clone this repository into your `scratch` directory:
+```
+# From the login node (home directory)
+cd scratch
+# Or from anywhere else
+cd $SCRATCH
+git clone https://github.com/reillypidgeon/castalagin_stool_metagenomics.git
+```
 
 ## LICENSE
 GNU GENERAL PUBLIC LICENSE (Version 3, 29 June 2007) <br>
