@@ -33,7 +33,7 @@ Scripts, metadata, and tables used in the analysis of metagenomics sequencing da
 >Clinical trial accession: [NCT04130321](https://clinicaltrials.gov/study/NCT04130321) <br>
 
 ### PRJNA1499868_metagenomics
-Scripts, metadata, and tables used in the analysis of metagenomics sequencing data from fecal sample MO67 (healthy donor) <br />
+Scripts, metadata, and tables used to analyze metagenomics sequencing data from fecal sample MO67 (healthy donor). <br />
 
 >NCBI accession: PRJNA1499868 <br>
 
@@ -52,7 +52,7 @@ cd scratch
 cd $SCRATCH
 git clone https://github.com/reillypidgeon/castalagin_stool_metagenomics.git
 ```
-You can then run scripts from the individual directories in the cloned repository
+You can then run scripts from the individual directories in the cloned repository.
 ```
 # For example (database download)
 cd castalagin_stool_metagenomics/database_download_scripts
