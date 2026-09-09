@@ -3,7 +3,7 @@
 # From the login node (internet access needed)
 
 # Define directories
-project_dir="$SCRATCH/PRJNA1499868_MGX"
+project_dir="$SCRATCH/PRJEB76307_MGX"
 mkdir -p "${project_dir}"
 
 # Create a directory for all raw reads data in the scratch directory
