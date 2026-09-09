@@ -44,13 +44,23 @@ This directory contains scripts for setting up the databases. <br>
 
 ## Usage
 As mentioned above, the scripts in this code repository were not optimized for portability. <br>
-To reuse the scripts as-is, clone this repository into your `scratch` directory:
+To reuse the scripts as-is (in a DRAC cluster), clone this repository into your `scratch` directory:
 ```
 # From the login node (home directory)
 cd scratch
 # Or from anywhere else
 cd $SCRATCH
 git clone https://github.com/reillypidgeon/castalagin_stool_metagenomics.git
+```
+You can then run scripts from the individual directories in the cloned repository
+```
+# For example (database download)
+cd castalagin_stool_metagenomics/database_download_scripts
+bash uhgp_download.sh
+
+# Or for any of the analyses in the metagenomics scripts directories
+cd castalagin_stool_metagenomics/PRJNA1499868_metagenomics
+sbatch 01_fastp_bt2_qc.sh
 ```
 
 ## LICENSE
