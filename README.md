@@ -37,8 +37,8 @@ Scripts, metadata, and tables used in the analysis of metagenomics sequencing da
 
 >NCBI accession: PRJNA1499868 <br>
 
-### database_download <br>
-This directory contains scripts for database setup. <br> 
+### database_downloads <br>
+This directory contains scripts for setting up the databases. <br> 
 >[MetaPhlAn](https://cmprod1.cibio.unitn.it/biobakery4/metaphlan_databases/) <br>
 >[UHGP](https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/human-gut/v2.0.2/protein_catalogue/)
 
