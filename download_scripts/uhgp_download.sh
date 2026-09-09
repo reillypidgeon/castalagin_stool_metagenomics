@@ -2,10 +2,10 @@
 # Log in to the Digital Research Alliance of Canada Narval Cluster
 
 # From the login node (internet access needed)
-# Move to the scratch directory (if not already there) and create a directory for all UHGP data
-cd $SCRATCH
-mkdir -p uhgp
-cd uhgp
+# Create a directory for all UHGP data in the scratch directory
+uhgp_dir="$SCRATCH/uhgp"
+mkdir -p "${uhgp_dir}"
+cd "${uhgp_dir}"
 
 # Download the required UHGP data and metadata (protein clustering at 100 percent identity)
 parallel wget ::: https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/human-gut/v2.0.2/protein_catalogue/uhgp-100.tar.gz \
