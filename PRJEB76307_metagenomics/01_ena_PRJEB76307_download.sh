@@ -5,6 +5,7 @@
 # Define directories
 project_dir="$SCRATCH/PRJEB76307_MGX"
 mkdir -p "${project_dir}"
+scripts_dir=""
 
 # Create a directory for all raw reads data in the scratch directory
 read_dir="${project_dir}/raw_reads"
@@ -13,7 +14,7 @@ cd "${read_dir}"
 
 # Download the raw sequencing data from PRJEB76307 from a list of urls
 # Example url: ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR132/ERR13245373/NS.LH00147_0019.004.IDT_i7_213---IDT_i5_213.061_V2_R1.fastq.gz
-cat $SCRATCH/RP01-93_CC_CT/ena_PRJEB76307_urls.txt | parallel -j 8 wget -c -nc
+cat "$SCRATCH/castalagin_stool_metagenomics/PRJEB76307_metagenomics/ena_PRJEB76307_urls.txt" | parallel -j 8 wget -c -nc
 
 # Start an interactive job before proceeding with the following steps
 
