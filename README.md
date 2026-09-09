@@ -37,12 +37,11 @@ Scripts, metadata, and tables used in the analysis of metagenomics sequencing da
 
 >NCBI accession: PRJNA1499868 <br>
 
-### download_scripts
-This directory contains scripts used to set up databases (MetaPhlAn & UHGP) and download sequencing reads from the European Nucleotide Archive for PRJEB76307. <br>
-
->[MetaPhlAn](https://cmprod1.cibio.unitn.it/biobakery4/metaphlan_databases/)
+### database_download_scripts <br>
+This directory contains scripts for database setup. <br> 
+>[MetaPhlAn](https://cmprod1.cibio.unitn.it/biobakery4/metaphlan_databases/) <br>
 >[UHGP](https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/human-gut/v2.0.2/protein_catalogue/)
->
+
 ## LICENSE
 GNU GENERAL PUBLIC LICENSE (Version 3, 29 June 2007) <br>
 
