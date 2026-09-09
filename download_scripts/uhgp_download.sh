@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Log in to the Digital Research Alliance of Canada Cluster (Narval)
+# Log in to the Digital Research Alliance of Canada Narval Cluster
 
 # From the login node (internet access needed)
 # Move to the scratch directory (if not already there) and create a directory for all UHGP data
