@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
-# Log in to the Digital Research Alliance of Canada Cluster (Narval)
-
+# Log in to the Digital Research Alliance of Canada Narval Cluster
 # From the login node (internet access needed)
-# Define path to directory that will contain the raw reads
-READ_DIR="$SCRATCH/RP01-93_CC_CT/RP01-93_CC_CT_raw"
-mkdir -p $READ_DIR
 
-cd $READ_DIR
+# Define directories
+project_dir="$SCRATCH/PRJNA1499868_MGX"
+mkdir -p "${project_dir}"
+
+# Create a directory for all raw reads data in the scratch directory
+read_dir="${project_dir}/raw_reads"
+mkdir -p "${read_dir}"
+cd "${read_dir}"
 
 # Download the raw sequencing data from PRJEB76307 from a list of urls
 # Example url: ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR132/ERR13245373/NS.LH00147_0019.004.IDT_i7_213---IDT_i5_213.061_V2_R1.fastq.gz
