@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 #SBATCH --job-name=fastp_bt2
-#SBATCH --output=%x.out
-#SBATCH --error=%x.err
+#SBATCH --output=%x_%j.out
+#SBATCH --error=%x_%j.err
 #SBATCH --time=14:00:00
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=100G
@@ -15,7 +15,7 @@ set -euo pipefail
 # Define variables
 #===========================================================================
 # These could become positional arguments or optional arguments later on...
-READ_DIR="raw_reads"
+READ_DIR="$SCRATCH/PRJNA1499868_MGX/raw_reads"
 R1="$READ_DIR/NS.X0107.008.IDT_i7_97---IDT_i5_97.MO67_A-D_R1.fastq.gz"
 R2="$READ_DIR/NS.X0107.008.IDT_i7_97---IDT_i5_97.MO67_A-D_R2.fastq.gz"
 SAMPLE_ID="MO67"
