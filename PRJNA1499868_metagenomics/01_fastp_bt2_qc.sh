@@ -15,19 +15,20 @@ set -euo pipefail
 # Define variables
 #===========================================================================
 # These could become positional arguments or optional arguments later on...
-read_dir="$SCRATCH/PRJNA1499868_MGX/raw_reads"
+project_dir="$SCRATCH/PRJNA1499868_MGX"
+read_dir="${project_dir}/raw_reads"
+sample_id="MO67"
 R1="${read_dir}/NS.X0107.008.IDT_i7_97---IDT_i5_97.MO67_A-D_R1.fastq.gz"
 R2="${read_dir}/NS.X0107.008.IDT_i7_97---IDT_i5_97.MO67_A-D_R2.fastq.gz"
-sample_id="MO67"
 bt2_db="$SCRATCH/T2T_hg39/"
-#===========================================================================
 
 # Create output directories
-out_dir="fastp_bt2_qc"
+out_dir="${project_dir}/fastp_bt2_qc"
 fastqc_dir="${out_dir}/fastqc_out"
 fastp_dir="${out_dir}/fastp_out"
 bt2_dir="${out_dir}/bt2_out"
 mkdir -p "${out_dir}" "${fastqc_dir}" "${fastp_dir}" "${bt2_dir}"
+#===========================================================================
 
 # Load modules
 module load fastqc/0.12.1 fastp/1.0.1
