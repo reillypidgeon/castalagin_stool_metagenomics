@@ -5,7 +5,7 @@
 # Define directories
 project_dir="$SCRATCH/PRJEB76307_MGX"
 mkdir -p "${project_dir}"
-scripts_dir=""
+scripts_dir="$SCRATCH/castalagin_stool_metagenomics/PRJEB76307_metagenomics"
 
 # Create a directory for all raw reads data in the scratch directory
 read_dir="${project_dir}/raw_reads"
@@ -14,7 +14,7 @@ cd "${read_dir}"
 
 # Download the raw sequencing data from PRJEB76307 from a list of urls
 # Example url: ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR132/ERR13245373/NS.LH00147_0019.004.IDT_i7_213---IDT_i5_213.061_V2_R1.fastq.gz
-cat "$SCRATCH/castalagin_stool_metagenomics/PRJEB76307_metagenomics/ena_PRJEB76307_urls.txt" | parallel -j 8 wget -c -nc
+cat "${scripts_dir}/ena_PRJEB76307_urls.txt" | parallel -j 8 wget -c -nc
 
 # Start an interactive job before proceeding with the following steps
 
@@ -32,14 +32,14 @@ for dir in *; do
 	echo "R2 is $R2"
 	
 	# Use grep again to extract the directory name (for renaming)
-	DIR_NAME=$(echo $R1 | grep -E -o "0[0-9]{2}_V[1-4]")
-	echo $DIR_NAME
+	dir_name=$(echo $R1 | grep -E -o "0[0-9]{2}_V[1-4]")
+	echo $dir_name
 	
 	# Rename the samples
 	mv ${dir}/*R1*.fastq.gz ${dir}/$R1
 	mv ${dir}/*R2*.fastq.gz ${dir}/$R2
 	
 	# Rename the parent directory
-	mv $dir $DIR_NAME
-	ls $DIR_NAME
+	mv $dir $dir_name
+	ls $dir_name
 done
