@@ -2,6 +2,8 @@
 # Log in to the Digital Research Alliance of Canada Narval Cluster
 
 # From the login node (internet access needed)
+scripts_dir="$SCRATCH/castalagin_stool_metagenomics/database_downloads"
+
 # Create a directory for all UHGP data in the scratch directory
 uhgp_dir="$SCRATCH/uhgp"
 mkdir -p "${uhgp_dir}"
@@ -11,19 +13,7 @@ cd "${uhgp_dir}"
 parallel wget ::: https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/human-gut/v2.0.2/protein_catalogue/uhgp-100.tar.gz \
 https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/human-gut/v2.0.2/genomes-all_metadata.tsv
 
-# Start an interactive job before proceeding with the following steps (uncomment the line below)
-# salloc --mem=16G --time=2:00:00
-
-# Unzip the tar.gz files and delete the gz files afterwards
-tar -xvf uhgp-100.tar.gz
-rm *.gz
-
-# Rename the metadata file
-mv genomes-all_metadata.tsv uhgp_genomes_all_metadata.tsv
-
-# Build diamond databases using the uhgp-100 FASTA file
-module load diamond/2.1.22
-
-diamond makedb --in uhgp-100/uhgp-100.faa -d uhgp-100
+# Submit a scheduled job to unzip the .tar.gz and create a diamond database
+sbatch --wait "${scripts_dir}/uhgp_setup.slurm"
 
 echo "The UHGP database is now set up for further querying using sequences of interest"
