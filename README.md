@@ -50,6 +50,7 @@ To reuse the scripts as-is (in a DRAC cluster), clone this repository into your 
 cd scratch
 # Or from anywhere else
 cd $SCRATCH
+
 git clone https://github.com/reillypidgeon/castalagin_stool_metagenomics.git
 ```
 You can then run scripts from the individual directories in the cloned repository.
