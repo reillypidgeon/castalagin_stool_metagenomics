@@ -9,9 +9,6 @@
 
 set -euo pipefail
 
-# This script works for a single sample
-# Note that portability is not the main objective here, but future changes will aim to improve this
-
 # Define variables
 #===========================================================================
 # These could become positional arguments or optional arguments later on...
