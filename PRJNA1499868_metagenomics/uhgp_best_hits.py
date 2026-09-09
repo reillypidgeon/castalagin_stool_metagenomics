@@ -2,7 +2,6 @@
 
 import pandas as pd
 from pathlib import Path
-import glob
 import os
 
 # Get the sample_id
