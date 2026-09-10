@@ -15,6 +15,8 @@ fasta="GCF_009914755.1_T2T-CHM13v2.0_genomic.fna"
 db_name="t2t"
 #===========================================================================
 
+echo "Starting setup"
+
 # Unzip the .fna.gz file and delete it afterwards
 gunzip "${fasta}.gz"
 
