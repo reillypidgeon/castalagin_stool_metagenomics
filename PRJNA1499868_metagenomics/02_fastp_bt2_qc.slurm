@@ -16,7 +16,7 @@ read_dir="${project_dir}/raw_reads"
 sample_id="MO67"
 R1="${read_dir}/${sample_id}_R1.fastq.gz"
 R2="${read_dir}/${sample_id}_R2.fastq.gz"
-bt2_db="$SCRATCH/T2T_hg39/"
+bt2_db="$SCRATCH/t2t_hg39/"
 
 # Create output directories
 out_dir="${project_dir}/fastp_bt2_qc"
