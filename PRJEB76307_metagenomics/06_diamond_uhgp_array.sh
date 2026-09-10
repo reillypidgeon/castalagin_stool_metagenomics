@@ -11,7 +11,7 @@
 set -euo pipefail
 
 # The purpose of this workflow is to look for matches to known proteins
-# The top hits from the query vs. prodigal-predicted proteins are then searched against the Unified Human Gastrointestinal proteome (UHGP) to assign preliminary taxonomy 
+# The top hits from the query vs. Prodigal-predicted proteins are then searched against the Unified Human Gastrointestinal proteome (UHGP) to assign preliminary taxonomy 
 # According to the GTDB r202
 
 # Define variables
@@ -43,12 +43,14 @@ query="${scripts_dir}/queries.faa"
 db_prefix="${diamond_dir}/${sample_id}_prot_db"
 hits_tsv="${diamond_dir}/${sample_id}_hits.tsv"
 
+# Checks and cleanup
+#===========================================================================
 # As a preventative measure, remove all * (stops) from the proteins fasta
 proteins_clean="${protein_dir}${sample_id}_prodigal_proteins_no_stop.faa"
 
 # Strip trailing stop codons once from the original protein fasta and produces a new (cleaned) fasta
-if [ ! -f "$proteins_clean" ]; then
-  sed 's/\*$//' "$proteins" > "$proteins_clean"
+if [ ! -f "${proteins_clean}" ]; then
+  sed 's/\*$//' "$proteins" > "${proteins_clean}"
 fi
 
 # Look for the query file
@@ -58,13 +60,10 @@ if [ ! -f "$query" ]; then
 fi
 
 # Look for the cleaned prodigal protein fasta file for the given sample ID
-if [ ! -f "$proteins_clean" ]; then
-  echo "WARNING: $proteins_clean not found for sample $sample_id; skipping"
+if [ ! -f "${proteins_clean}" ]; then
+  echo "WARNING: ${proteins_clean} not found for sample $sample_id; skipping"
   exit 0
 fi
-
-
-
 
 # Load the required modules for diamond
 module load diamond/2.1.11 StdEnv/2023 python/3.13.2
@@ -77,6 +76,7 @@ if [ ! -f "${db_prefix}.dmnd" ]; then
     --in "$proteins_clean" \
     -d "$db_prefix"
 fi
+#===========================================================================
 
 # Now run DIAMOND using the DB
 echo "Running DIAMOND (blastp mode) for $sample_id"
