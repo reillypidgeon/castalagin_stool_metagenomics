@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Log in to the Digital Research Alliance of Canada Narval Cluster
+# From the login node (internet access needed)
 
 set -euo pipefail
 
