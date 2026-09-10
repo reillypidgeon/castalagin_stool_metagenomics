@@ -8,13 +8,7 @@
 #SBATCH --cpus-per-task=10
 #SBATCH --mem=100G
 
-# The purpose of this workflow is to use reads from pre- and post-camu camu treatment timepoints to create per-patient co-assemblies and protein catalogs
-
-date
-
-# Load the required modules for megahit and prodigal
-module load megahit/1.2.9 StdEnv/2023 prodigal/2.6.3
-echo "Modules loaded"
+set -euo pipefail
 
 # These are the directory variables for samples
 SAMPLE_DIR=$SCRATCH/RP01-93_CC_CT/RP01-93_CC_CT_fastp_bt2_out/bt2_out
@@ -62,6 +56,10 @@ fi
 
 echo "R1: $R1_FILES"
 echo "R2: $R2_FILES"
+
+# Load the required modules for megahit and prodigal
+module load megahit/1.2.9 StdEnv/2023 prodigal/2.6.3
+echo "Modules loaded"
 
 # Invoke megahit
 # Run megahit on the bt2 unmapped reads
