@@ -11,7 +11,6 @@ set -euo pipefail
 
 # Define variables
 #===========================================================================
-# These could become positional arguments or optional arguments later on...
 project_dir="$SCRATCH/PRJNA1499868_MGX"
 read_dir="${project_dir}/raw_reads"
 sample_id="MO67"
