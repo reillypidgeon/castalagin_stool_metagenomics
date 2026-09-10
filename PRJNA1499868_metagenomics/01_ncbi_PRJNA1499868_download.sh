@@ -18,12 +18,12 @@ module load sra-toolkit
 accession="SRR39796052"
 
 prefetch "$accession" \
-    --output-directory "${read_dir}"
+    --output-directory "${read_dir}" \
     --max-size 100G
 
 vdb-validate "${read_dir}/$accession"
 
 # Submit a scheduled job for FASTQ conversion
-sbatch --wait ncbi_PRJNA1499868_setup.slurm
+sbatch --wait "${scripts_dir}/ncbi_PRJNA1499868_setup.slurm"
 
 echo "Finished downloading metagenomics reads for sample MO67 from the NCBI"
