@@ -36,7 +36,7 @@ echo "R2: $R2"
 
 # Create output directories for each tool
 fastqc_dir="${out_dir}/fastqc_out"
-fastp_dir="${out_dir}/fastp_dir/${sample_id}"
+fastp_dir="${out_dir}/fastp_out/${sample_id}"
 bt2_dir="${out_dir}/bt2_out/${sample_id}"
 mkdir -p "${fastqc_dir}" "${fastp_dir}" "${bt2_dir}"
 #===========================================================================
@@ -51,8 +51,8 @@ fastqc $R1 $R2 \
 
 echo "Running fastp to trim adapters and overrepresented sequences"
 fastp -i $R1 -I $R2 --verbose \
--o "$fastp_dir/${sample_id}_trim_R1.fastq.gz" \
--O "$fastp_dir/${sample_id}_trim_R2.fastq.gz" \
+-o "${fastp_dir}/${sample_id}_trim_R1.fastq.gz" \
+-O "${fastp_dir}/${sample_id}_trim_R2.fastq.gz" \
 --detect_adapter_for_pe --trim_poly_g \
 --cut_front --cut_tail --cut_window_size 4 \
 --cut_mean_quality 20 --length_required 100 \
