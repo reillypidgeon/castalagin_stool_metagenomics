@@ -21,8 +21,10 @@ Scripts, metadata, and tables used in the analysis of metagenomic sequencing dat
 - `01_ena_PRJEB76307_download.sh`: Shell script to download metagenomic sequencing reads from the clinical trial
 - `02_fastp_bt2_qc_array.slurm`: Shell (slurm) script to trim reads and remove host reads
 - `03_metaphlan_array.slurm`: Shell (slurm) script to determine relative abundance of taxa
-- `04_megahit_prodigal_array.slurm`: Shell (slurm) script to assemble reads into contigs and predict proteins
-- `05_diamond_uhgp_array.slurm`: Shell (slurm) script to search predicted proteins against the UHGP database
+- `04_megahit_prodigal_co_array.slurm`: Shell (slurm) script to assemble reads into contigs and predict proteins
+- `05_diamond_uhgp_array.slurm`: Shell (slurm) script to search predicted proteins against the UHGP database, then to search the best hits against the UHGP database
+- `06_bt2_backmap_array.slurm`:
+- `07_featurecounts_array.slurm`:
 
 ### PRJNA1499868_metagenomics
 Scripts, metadata, and tables used to analyze metagenomic sequencing data from fecal sample MO67 in this study. <br>
