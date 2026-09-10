@@ -42,13 +42,14 @@ query="${scripts_dir}/queries.faa"
 
 db_prefix="${diamond_dir}/${sample_id}_prot_db"
 hits_tsv="${diamond_dir}/${sample_id}_hits.tsv"
+#===========================================================================
 
 # Checks and cleanup
 #===========================================================================
 # As a preventative measure, remove all * (stops) from the proteins fasta
 proteins_clean="${protein_dir}${sample_id}_prodigal_proteins_no_stop.faa"
 
-# Strip trailing stop codons once from the original protein fasta and produces a new (cleaned) fasta
+# Strip trailing stop codons once from the original protein FASTA and produce a new (cleaned) FASTA
 if [ ! -f "${proteins_clean}" ]; then
   sed 's/\*$//' "$proteins" > "${proteins_clean}"
 fi
@@ -59,7 +60,7 @@ if [ ! -f "$query" ]; then
   exit 2
 fi
 
-# Look for the cleaned prodigal protein fasta file for the given sample ID
+# Look for the cleaned Prodigal protein FASTA file for the given sample ID
 if [ ! -f "${proteins_clean}" ]; then
   echo "WARNING: ${proteins_clean} not found for sample $sample_id; skipping"
   exit 0
