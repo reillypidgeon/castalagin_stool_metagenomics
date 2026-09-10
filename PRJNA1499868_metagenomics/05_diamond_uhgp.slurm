@@ -20,7 +20,7 @@ scripts_dir="$SCRATCH/castalagin_stool_metagenomics/PRJNA1499868_metagenomics" #
 sample_id="MO67"
 prodigal_dir="${project_dir}/prodigal_out"
 
-query="RP01-94_queries.faa"
+query="${scripts_dir}/RP01-94_queries.faa"
 proteins="${prodigal_dir}/${sample_id}_prodigal_proteins.faa"
 
 # Create output directory for diamond output
