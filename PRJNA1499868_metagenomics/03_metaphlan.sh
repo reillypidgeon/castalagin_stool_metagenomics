@@ -38,7 +38,7 @@ pip install --no-index metaphlan==4.1.1
 metaphlan $R1,$R2 \
 --input_type fastq \
 -o "${out_dir}/${sample_id}_metaphlan_out.txt" \
---nproc $SLURM_CPUS_PER_TASK \
+--nproc ${SLURM_CPUS_PER_TASK} \
 --index mpa_vJun23_CHOCOPhlAnSGB_202403 \
 --bowtie2db "${metaphlan_db}" \
 --bowtie2out "${out_dir}/${sample_id}_metaphlan_out.bowtie2.bz2"
