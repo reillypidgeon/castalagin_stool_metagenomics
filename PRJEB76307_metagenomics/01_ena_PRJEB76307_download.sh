@@ -18,8 +18,7 @@ cd "${read_dir}"
 #===========================================================================
 
 # Download the raw sequencing data from PRJEB76307 from a list of urls
-# Example url: ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR132/ERR13245373/NS.LH00147_0019.004.IDT_i7_213---IDT_i5_213.061_V2_R1.fastq.gz
-cat "${scripts_dir}/ena_PRJEB76307_urls.txt" | parallel -j 8 wget -c -nc
+parallel -j 8 wget -nc :::: "${scripts_dir}/ena_PRJEB76307_urls.txt"
 
 echo "Finished downloading reads"
 
