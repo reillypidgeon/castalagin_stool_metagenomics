@@ -23,6 +23,5 @@ bt2_link="${bt2_url}${metaphlan_version}"
 parallel -j 7 wget ::: "${link}.md5" "${link}.nwk" "${link}.tar" "${link}_marker_info.txt.bz2" "${link}_species.txt.bz2" "${bt2_link}_bt2.md5" "${bt2_link}_bt2.tar"
 
 # After these are downloaded, schedule a job to untar & unzip the database
-sbatch --wait "${scripts_dir}/metaphlan_db_setup.slurm"
-
-echo "Done setting up the MetaPhlAn database"
+echo "Scheduling a job to set up the MetaPhlAn database"
+sbatch "${scripts_dir}/metaphlan_db_setup.slurm"
