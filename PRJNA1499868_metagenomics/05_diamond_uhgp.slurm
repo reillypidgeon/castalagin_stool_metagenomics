@@ -10,7 +10,7 @@
 set -euo pipefail
 
 # The purpose of this workflow is to look for matches to known proteins
-# The top hits from the query vs. prodigal-predicted proteins are then searched against the Unified Human Gastrointestinal proteome (UHGP) to assign preliminary taxonomy 
+# The top hits from the query vs. Prodigal-predicted proteins are then searched against the Unified Human Gastrointestinal proteome (UHGP) to assign preliminary taxonomy 
 # According to the GTDB r202
 
 # Define variables
