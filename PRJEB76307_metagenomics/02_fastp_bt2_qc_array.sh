@@ -8,9 +8,13 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=100G
 
-# This script will be used for quality control trimming of raw reads from NCT04130321 (ENA PRJEB76307: 66 paired-end samples)
+set -euo pipefail
 
-date
+# Define variables
+#===========================================================================
+project_dir="$SCRATCH/PRJEB76307_MGX"
+
+#===========================================================================
 
 # Load modules
 module load fastqc/0.12.1 fastp/1.0.1 gcc/14.3
@@ -23,26 +27,26 @@ OUT_DIR=$SCRATCH/RP01-93_CC_CT/RP01-93_CC_CT_fastp_bt2_out
 mkdir -p $OUT_DIR
 
 # Set the location of the bowtie2 index
-BT2_DB=$SCRATCH/t2t_hg39/
+bt2_db=$SCRATCH/t2t_hg39/
 
 # Build array of directories - all directories have the same sample ID (e.g. 021_V1) as each read set
 DIRS=(${SAMPLE_DIR}/*/)
 READ_DIR=${DIRS[$SLURM_ARRAY_TASK_ID]}
-SAMPLE_ID=$(basename "$READ_DIR")
+sample_id=$(basename "$READ_DIR")
 
 R1=$(ls ${READ_DIR}/*_R1*.fastq.gz)
 R2=$(ls ${READ_DIR}/*_R2*.fastq.gz)
 
-echo "Sample: $SAMPLE_ID"
+echo "Sample: $sample_id"
 echo "R1: $R1"
 echo "R2: $R2"
 
 # Create output directories for each step of filtering, QC, and human genome mapping
 FASTQC_OUT=$OUT_DIR/fastqc_out
-FASTP_OUT=$OUT_DIR/fastp_out/${SAMPLE_ID}
-BT2_OUT=$OUT_DIR/bt2_out/${SAMPLE_ID}
+fastp_out=$OUT_DIR/fastp_out/${sample_id}
+BT2_OUT=$OUT_DIR/bt2_out/${sample_id}
 mkdir -p $FASTQC_OUT
-mkdir -p $FASTP_OUT
+mkdir -p $fastp_out
 mkdir -p $BT2_OUT
 
 # Start with fastqc on the raw reads to see what the quality was like at the start
@@ -54,16 +58,16 @@ fastqc $R1 $R2 --outdir $FASTQC_OUT \
 # This should detect Illumina TruSeq Adapter sequences as well
 echo "Running fastp to trim adapters and overrepresented sequences"
 fastp -i $R1 -I $R2 --verbose \
--o $FASTP_OUT/${SAMPLE_ID}_trim_R1.fastq.gz -O $FASTP_OUT/${SAMPLE_ID}_trim_R2.fastq.gz \
+-o $fastp_out/${sample_id}_trim_R1.fastq.gz -O $fastp_out/${sample_id}_trim_R2.fastq.gz \
 --detect_adapter_for_pe --trim_poly_g \
 --cut_front --cut_tail --cut_window_size 4 \
 --cut_mean_quality 20 --length_required 100 \
 --thread $SLURM_CPUS_PER_TASK \
---html $FASTP_OUT/${SAMPLE_ID}_fastp.html \
---json $FASTP_OUT/${SAMPLE_ID}_fastp.json
+--html $fastp_out/${sample_id}_fastp.html \
+--json $fastp_out/${sample_id}_fastp.json
 
 echo "Now running FastQC on trimmed reads"
-fastqc $FASTP_OUT/${SAMPLE_ID}_trim_R1.fastq.gz $FASTP_OUT/${SAMPLE_ID}_trim_R2.fastq.gz \
+fastqc $fastp_out/${sample_id}_trim_R1.fastq.gz $fastp_out/${sample_id}_trim_R2.fastq.gz \
 --outdir $FASTQC_OUT \
 --threads $SLURM_CPUS_PER_TASK --noextract
 
@@ -77,20 +81,20 @@ module load bowtie2/2.5.4
 echo "Modules loaded"
 
 # Map trimmed reads to the T2T human genome and output aligned and unaligned reads (as fastq.gz)
-bowtie2 -x $BT2_DB/t2t -p $SLURM_CPUS_PER_TASK \
--1 $FASTP_OUT/${SAMPLE_ID}_trim_R1.fastq.gz \
--2 $FASTP_OUT/${SAMPLE_ID}_trim_R2.fastq.gz \
---un-conc-gz $BT2_OUT/${SAMPLE_ID}_bt2_t2t_unaligned_R%.fastq.gz \
---al-conc-gz $BT2_OUT/${SAMPLE_ID}_bt2_t2t_aligned_R%.fastq.gz \
+bowtie2 -x $bt2_db/t2t -p $SLURM_CPUS_PER_TASK \
+-1 $fastp_out/${sample_id}_trim_R1.fastq.gz \
+-2 $fastp_out/${sample_id}_trim_R2.fastq.gz \
+--un-conc-gz $BT2_OUT/${sample_id}_bt2_t2t_unaligned_R%.fastq.gz \
+--al-conc-gz $BT2_OUT/${sample_id}_bt2_t2t_aligned_R%.fastq.gz \
 --fr --quiet
 
 echo "Mapped MGX reads to T2T human reference genome"
 echo "The unaligned reads are needed for downstream analyses like metaphlan and megahit"
 
 echo "Now running FastQC on trimmed unaligned reads"
-fastqc $BT2_OUT/${SAMPLE_ID}_bt2_t2t_unaligned_R1.fastq.gz $BT2_OUT/${SAMPLE_ID}_bt2_t2t_unaligned_R2.fastq.gz \
+fastqc $BT2_OUT/${sample_id}_bt2_t2t_unaligned_R1.fastq.gz $BT2_OUT/${sample_id}_bt2_t2t_unaligned_R2.fastq.gz \
 --outdir $FASTQC_OUT \
 --threads $SLURM_CPUS_PER_TASK --noextract
 
 date
-echo "The read cleanup is done for $SAMPLE_ID"
+echo "The read cleanup is done for $sample_id"
