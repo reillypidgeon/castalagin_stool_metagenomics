@@ -1,11 +1,12 @@
 # Code Repository for Giurleo et al. bioRxiv, 2026
 Code used to analyze metagenomic samples derived from human fecal samples (Giurleo et al., Unpublished, 2026).<br>
-The general workflows involve read QC, human read removal, contig assembly, protein prediction, and protein searching against databases.
+The general workflows involve read QC, human read removal, relative abundance determination, contig assembly, protein prediction, and protein searching against databases.
 <br>
 
 >[!IMPORTANT]
 > - Scripts used here work within the Digital Research Alliance of Canada (DRAC) Narval cluster <br>
 > - Scripts were not optimized for portability across systems since most tools are already made available by DRAC
+> - Some paths are hardcoded starting from the `scratch` directory (`/home/username/scratch`)
 
 ## Citation
 DOI for BioRxiv or publication <br>
