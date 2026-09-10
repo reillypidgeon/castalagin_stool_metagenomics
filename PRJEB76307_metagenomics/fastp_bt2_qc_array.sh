@@ -23,7 +23,7 @@ OUT_DIR=$SCRATCH/RP01-93_CC_CT/RP01-93_CC_CT_fastp_bt2_out
 mkdir -p $OUT_DIR
 
 # Set the location of the bowtie2 index
-BT2_DB=$SCRATCH/T2T_hg39/
+BT2_DB=$SCRATCH/t2t_hg39/
 
 # Build array of directories - all directories have the same sample ID (e.g. 021_V1) as each read set
 DIRS=(${SAMPLE_DIR}/*/)
