@@ -78,7 +78,7 @@ sbatch 02_fastp_bt2_qc.slurm
 ### Tools and packages used in analyses
   1. Python (version )
   2. R (version)
-  3. GNU Parallel (version )
+  3. [GNU Parallel](https://doi.org/10.5281/zenodo.7958356) (version )
   4. Fastp (version )
   5. FastQC (version )
   6. Bowtie2 (version )
