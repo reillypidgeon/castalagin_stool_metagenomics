@@ -84,17 +84,17 @@ echo "Running DIAMOND (blastp mode) for $sample_id"
 
 diamond blastp \
   -q "$query" \
-  -d "$db_prefix" \
-  -o "$hits_tsv" \
+  -d "${db_prefix}" \
+  -o "${hits_tsv}" \
   --outfmt 6 qseqid sseqid pident ppos length qlen slen qstart qend sstart send evalue bitscore full_qseq full_sseq \
-  --id $min_seq_id \
-  --subject-cover $min_coverage \
-  -k $k_value \
-  --threads $SLURM_CPUS_PER_TASK
+  --id ${min_seq_id} \
+  --subject-cover ${min_coverage} \
+  -k ${k_value} \
+  --threads ${SLURM_CPUS_PER_TASK}
 
-echo "Sample $sample_id finished. Hits: $(wc -l < "$hits_tsv" 2>/dev/null || echo 0)"
+echo "Sample ${sample_id} finished. Hits: $(wc -l < "${hits_tsv}" 2>/dev/null || echo 0)"
 
-
+### Stopped here - need to add the UHGP portion
 
 
 
