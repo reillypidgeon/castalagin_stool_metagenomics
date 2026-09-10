@@ -11,9 +11,8 @@ set -euo pipefail
 
 # Define variables
 #=======================================================================
-# These could become positional arguments or optional arguments later on...
 project_dir="$SCRATCH/PRJNA1499868_MGX"
-read_dir="${project_dir}/fastp_bt2_qc/bt2_out/" # Using the trimmed, unaligned reads
+read_dir="${project_dir}/fastp_bt2_qc/bt2_out/"
 sample_id="MO67"
 R1="${read_dir}/${sample_id}_bt2_t2t_unaligned_R1.fastq.gz"
 R2="${read_dir}/${sample_id}_bt2_t2t_unaligned_R2.fastq.gz"
