@@ -15,8 +15,8 @@ set -euo pipefail
 project_dir="$SCRATCH/PRJNA1499868_MGX"
 read_dir="${project_dir}/raw_reads"
 sample_id="MO67"
-R1="${read_dir}/NS.X0107.008.IDT_i7_97---IDT_i5_97.MO67_A-D_R1.fastq.gz"
-R2="${read_dir}/NS.X0107.008.IDT_i7_97---IDT_i5_97.MO67_A-D_R2.fastq.gz"
+R1="${read_dir}/${sample_id}_R1.fastq.gz"
+R2="${read_dir}/${sample_id}_R2.fastq.gz"
 bt2_db="$SCRATCH/T2T_hg39/"
 
 # Create output directories
