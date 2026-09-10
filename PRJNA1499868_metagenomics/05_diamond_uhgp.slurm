@@ -86,7 +86,7 @@ diamond blastp \
 echo "Sample finished. Hits: $(wc -l < "${hits_tsv}" 2>/dev/null || echo 0)"
 
 # Now annotate the resulting diamond output table
-module scipy-stack/2025a
+module load scipy-stack/2026a
 
 # Export variables
 export diamond_dir
