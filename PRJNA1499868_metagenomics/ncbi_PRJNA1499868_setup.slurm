@@ -9,16 +9,20 @@
 
 set -euo pipefail
 
-module load sra-toolkit
-
-
 # Define variables
+#===========================================================================
 accession="$1"
 read_dir="$2"
+sample_id="$3"
 sra_dir="${read_dir}/$accession"
 
+# Create a temporary directory
 tmp="${SLURM_TMPDIR}/sra_tmp"
 mkdir -p "$tmp"
+#===========================================================================
+
+# Extract the reads from the prefetched SRA data
+module load sra-toolkit
 
 echo "Starting FASTQ extraction for ${accession}"
 
@@ -31,12 +35,15 @@ fasterq-dump \
 
 rm -r ${sra_dir}
 
-echo "Compressing FASTQ files..."
+echo "Compressing FASTQ files"
 
 gzip -v "${read_dir}/${accession}_1.fastq"
 gzip -v "${read_dir}/${accession}_2.fastq"
 
 echo "Finished zipping FASTQ files"
 
-# Rename files using the sample identification
-sample_id="MO67"
+# Rename files using the sample identification variable
+mv "${read_dir}/${accession}_1.fastq.gz" "${read_dir}/${sample_id}_R1.fastq.gz"
+mv "${read_dir}/${accession}_2.fastq.gz" "${read_dir}/${sample_id}_R2.fastq.gz"
+
+echo "Finished renaming the FASTQ files"
