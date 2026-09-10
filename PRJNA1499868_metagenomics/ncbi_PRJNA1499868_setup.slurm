@@ -13,8 +13,8 @@ module load sra-toolkit
 
 
 # Define variables
-accession="SRR39796052"
-reads_dir="${project_dir}/raw_reads"
+accession="$1"
+reads_dir="$2"
 sra_dir="${reads_dir}/$accession"
 
 tmp="${SLURM_TMPDIR}/sra_tmp"
