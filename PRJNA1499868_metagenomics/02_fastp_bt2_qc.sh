@@ -32,7 +32,7 @@ module load fastqc/0.12.1 fastp/1.0.1
 
 echo "Running FastQC"
 fastqc $R1 $R2 --outdir ${fastqc_dir} \
---threads $SLURM_CPUS_PER_TASK --noextract
+--threads ${SLURM_CPUS_PER_TASK} --noextract
 
 echo "Running fastp to trim adapters and overrepresented sequences"
 fastp -i $R1 -I $R2 --verbose \
@@ -41,13 +41,13 @@ fastp -i $R1 -I $R2 --verbose \
 --detect_adapter_for_pe --trim_poly_g \
 --cut_front --cut_tail --cut_window_size 4 \
 --cut_mean_quality 20 --length_required 100 \
---thread $SLURM_CPUS_PER_TASK \
+--thread ${SLURM_CPUS_PER_TASK} \
 --html "${fastp_dir}/${sample_id}_fastp.html" --json "${fastp_dir}/${sample_id}_fastp.json"
 
 echo "Now running FastQC on trimmed reads"
 fastqc "${fastp_dir}/${sample_id}_trim_R1.fastq.gz" "${fastp_dir}/${sample_id}_trim_R2.fastq.gz" \
 --outdir ${fastqc_dir} \
---threads $SLURM_CPUS_PER_TASK --noextract
+--threads ${SLURM_CPUS_PER_TASK} --noextract
 
 echo "Now moving on to the removal of host reads using bowtie2"
 
@@ -57,7 +57,7 @@ echo "Modules loaded"
 
 # Map trimmed reads to the human genome (GCF_009914755.1_T2T-CHM13v2.0_genomic.fna)
 # Output both aligned and unaligned reads (as fastq.gz)
-bowtie2 -x "${bt2_db}/t2t" -p $SLURM_CPUS_PER_TASK \
+bowtie2 -x "${bt2_db}/t2t" -p ${SLURM_CPUS_PER_TASK} \
 -1 "${fastp_dir}/${sample_id}_trim_R1.fastq.gz" \
 -2 "${fastp_dir}/${sample_id}_trim_R2.fastq.gz" \
 --un-conc-gz "${bt2_dir}/${sample_id}_bt2_t2t_unaligned_R%.fastq.gz" \
@@ -69,7 +69,7 @@ echo "The unaligned reads will be used in downstream analyses like metaphlan and
 echo "Now running FastQC on trimmed unaligned reads"
 fastqc "${bt2_dir}/${sample_id}_bt2_t2t_unaligned_R1.fastq.gz" "${bt2_dir}/${sample_id}_bt2_t2t_unaligned_R2.fastq.gz" \
 --outdir ${fastqc_dir} \
---threads $SLURM_CPUS_PER_TASK --noextract
+--threads ${SLURM_CPUS_PER_TASK} --noextract
 
 date
 echo "The read cleanup is done"
