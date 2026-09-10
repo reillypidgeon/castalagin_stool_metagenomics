@@ -62,8 +62,8 @@ fi
 if [[ ! -f "${db_prefix}.dmnd" ]]; then
   echo "Building diamond database"
   diamond makedb \
-    --in "$proteins_clean" \
-    -d "$db_prefix"
+    --in "${proteins_clean}" \
+    -d "${db_prefix}"
 fi
 #===========================================================================
 
@@ -81,7 +81,7 @@ diamond blastp \
   --id "${min_id}" \
   --subject-cover "${s_cov}" \
   -k "${k_val}" \
-  --threads "$SLURM_CPUS_PER_TASK"
+  --threads "${SLURM_CPUS_PER_TASK}"
 
 echo "Sample finished. Hits: $(wc -l < "${hits_tsv}" 2>/dev/null || echo 0)"
 
@@ -99,7 +99,7 @@ python3 "${scripts_dir}/uhgp_best_hits.py"
 #===========================================================================
 # Create output directory for diamond_uhgp output
 diamond_uhgp_dir="${project_dir}/diamond_uhgp_out"
-mkdir -p $diamond_uhgp_dir
+mkdir -p "${diamond_uhgp_dir}"
 
 # Set the diamond tool input, database, and output file names
 query="${diamond_dir}/${sample_id}_best_hits.fasta"
@@ -118,7 +118,7 @@ diamond blastp \
   --outfmt 6 qseqid sseqid pident ppos length qlen slen qstart qend sstart send evalue bitscore full_qseq full_sseq \
   --id ${min_id} \
   -k ${k_val} \
-  --threads $SLURM_CPUS_PER_TASK
+  --threads ${SLURM_CPUS_PER_TASK}
 
 echo "Finished search against the UHGP"
 
