@@ -23,6 +23,5 @@ prefetch "$accession" \
 vdb-validate "${read_dir}/$accession"
 
 # Submit a scheduled job for FASTQ conversion
-sbatch --wait "${scripts_dir}/ncbi_PRJNA1499868_setup.slurm" "$accession" "${read_dir}"
-
-echo "Finished downloading metagenomics reads for sample MO67 from the NCBI"
+echo "Submitting scheduled job to set up FASTQ files"
+sbatch "${scripts_dir}/ncbi_PRJNA1499868_setup.slurm" "$accession" "${read_dir}"
