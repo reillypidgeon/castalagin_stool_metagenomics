@@ -15,4 +15,4 @@ https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/human-gut/v2.0.2
 
 # Submit a scheduled job to unzip the .tar.gz and create a diamond database
 echo "Scheduling a job to set up the UHGP database"
-sbatch --wait "${scripts_dir}/uhgp_setup.slurm"
+sbatch "${scripts_dir}/uhgp_setup.slurm"
