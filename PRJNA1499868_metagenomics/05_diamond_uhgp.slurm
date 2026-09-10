@@ -58,6 +58,9 @@ if [[ ! -f "$query" ]]; then
   exit 2
 fi
 
+# Load the required modules for diamond and the Python script
+module load diamond/2.1.11 StdEnv/2023 python/3.13.2
+
 # Build the diamond database (if it doesn't already exist)
 if [[ ! -f "${db_prefix}.dmnd" ]]; then
   echo "Building diamond database"
@@ -66,9 +69,6 @@ if [[ ! -f "${db_prefix}.dmnd" ]]; then
     -d "${db_prefix}"
 fi
 #===========================================================================
-
-# Load the required modules for diamond and the Python script
-module load diamond/2.1.11 StdEnv/2023 python/3.13.2
 
 # Now run diamond using the built diamond database
 echo "Running diamond: queries FASTA file against prodigal-predicted proteins"
