@@ -12,3 +12,5 @@ set -euo pipefail
 # Untar and unzip
 tar -xvf mpa_vJun23_CHOCOPhlAnSGB_202403.tar
 parallel bunzip2 ::: *.bz2
+
+echo "Finished MetaPhlAn database setup"
