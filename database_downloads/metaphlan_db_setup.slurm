@@ -13,6 +13,7 @@ echo "Starting setup"
 
 # Untar and unzip
 tar -xvf mpa_vJun23_CHOCOPhlAnSGB_202403.tar
+tar -xvf mpa_vJun23_CHOCOPhlAnSGB_202403_bt2.tar
 parallel bunzip2 ::: *.bz2
 
 echo "Finished MetaPhlAn database setup"
