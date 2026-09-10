@@ -9,6 +9,8 @@
 
 set -euo pipefail
 
+echo "Starting setup"
+
 # Untar and unzip
 tar -xvf mpa_vJun23_CHOCOPhlAnSGB_202403.tar
 parallel bunzip2 ::: *.bz2
