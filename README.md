@@ -33,7 +33,7 @@ Scripts, metadata, and tables used to analyze metagenomic sequencing data from f
 - `02_fastp_bt2_qc.slurm`: Shell (slurm) script to trim reads and remove host reads
 - `03_metaphlan.slurm`: Shell (slurm) script to determine relative abundance of taxa
 - `04_megahit_prodigal.slurm`: Shell (slurm) script to assemble reads into contigs and predict proteins
-- `05_diamond_uhgp.slurm`: Shell (slurm) script to search predicted proteins against the UHGP database
+- `05_diamond_uhgp.slurm`: Shell (slurm) script to search queries against predicted proteins, then to search the best hits against the UHGP database
 
 ### database_downloads <br>
 Scripts for downloading and setting up the various databases used in the metagenomic analyses. <br>
