@@ -20,3 +20,5 @@ mv genomes-all_metadata.tsv uhgp_genomes_all_metadata.tsv
 module load diamond/2.1.22
 
 diamond makedb --in uhgp-100/uhgp-100.faa -d uhgp-100
+
+echo "Finished UHGP database setup"
