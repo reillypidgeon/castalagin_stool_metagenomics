@@ -10,87 +10,94 @@
 
 set -euo pipefail
 
-# These are the directory variables for samples
-SAMPLE_DIR=$SCRATCH/RP01-93_CC_CT/RP01-93_CC_CT_fastp_bt2_out/bt2_out
-OUT_DIR=$SCRATCH/RP01-93_CC_CT/RP01-93_CC_CT_analysis
-mkdir -p $OUT_DIR
+# This script assembles reads from the same subject sampled at different timepoints (co-assembly)
 
-# Create output directory for megahit
-MEGAHIT_OUT=$OUT_DIR/megahit_co_assembly_out
-mkdir -p $MEGAHIT_OUT
+# Define variables
+#===========================================================================
+project_dir="$SCRATCH/PRJEB76307_MGX"
+sample_dir="${project_dir}/fastp_bt2_qc/bt2_out" # This directory contains 66 sample directories containing paired-end reads R1 and R2 (after removing reads mapped to the human genome)
+scripts_dir="$SCRATCH/castalagin_stool_metagenomics/PRJEB76307_metagenomics" # Scripts from repository
 
-# Build patient list once per job array run (on the first instance)
-if [[ $SLURM_ARRAY_TASK_ID -eq 1 ]]; then
-    echo "Building patient list..."
-    # sed 's/_.*//' (below) is used to remove everything from the first underscore (_) to the end of each line in a text stream
-    ls "$SAMPLE_DIR" | sed 's/_.*//' | sort -u > patient_ids.txt
+# Create mehahit output directory
+megahit_dir="${project_dir}/megahit_co_out"
+mkdir -p "${megahit_dir}"
+#===========================================================================
+
+# Build a list of subject_ids for the co-assembly
+#===========================================================================
+
+# Build subject list on the first instance of the job array
+if [[ ${SLURM_ARRAY_TASK_ID} -eq 1 ]]; then
+    echo "Building a list of subjects"
+    ls "${sample_dir}" | sed 's/_.*//' | sort -u > "${scripts_dir}/subject_ids.txt"
 fi
 
-# Short delay so other tasks don't try to read before the patient_id file exists
+# Short delay so other tasks don't try to read before the subject_ids file exists
 sleep 5
 
-# Get patient ID for this SLURM task
-# Note that starting at index 0 returns an error with this sed command
-P_ID=$(sed -n "${SLURM_ARRAY_TASK_ID}p" patient_ids.txt)
-echo "SLURM task ${SLURM_ARRAY_TASK_ID} | Patient: $P_ID"
-echo
+# Get subject_id for this SLURM task
+subject_id=$(sed -n "${SLURM_ARRAY_TASK_ID}p" subject_ids.txt)
+echo "SLURM task ${SLURM_ARRAY_TASK_ID} | Subject: $subject_id"
 
 # Now get timepoint directories
-TIME_DIRS=$(ls -d ${SAMPLE_DIR}/${P_ID}_* 2>/dev/null)
+time_dirs=$(ls -d ${sample_dir}/${subject_id}_* 2>/dev/null)
 
-if [[ -z "$TIME_DIRS" ]]; then
-    echo "ERROR: No directories found for patient $P_ID"
+if [[ -z "$time_dirs" ]]; then
+    echo "ERROR: No directories found for subject $subject_id"
     exit 1
 fi
 
-echo "Timepoint directories: $TIME_DIRS"
+echo "Timepoint directories: $time_dirs"
 
-# Get the reads from each patient at both timepoints - these will be used in the co-assemblies
-R1_FILES=$(find $TIME_DIRS -type f -name "*unaligned_R1*.fastq.gz" | tr '\n' ',' | sed 's/,$//')
-R2_FILES=$(find $TIME_DIRS -type f -name "*unaligned_R2*.fastq.gz" | tr '\n' ',' | sed 's/,$//')
+# Get the reads from each subject at both timepoints - these will be used in the co-assemblies
+R1_files=$(find $time_dirs -type f -name "*unaligned_R1*.fastq.gz" | tr '\n' ',' | sed 's/,$//')
+R2_files=$(find $time_dirs -type f -name "*unaligned_R2*.fastq.gz" | tr '\n' ',' | sed 's/,$//')
 
-if [[ -z "$R1_FILES" || -z "$R2_FILES" ]]; then
-    echo "ERROR: Missing R1 or R2 files for patient $PID"
+if [[ -z "$R1_files" || -z "$R2_files" ]]; then
+    echo "ERROR: Missing R1 or R2 files for subject $subject_id"
     exit 1
 fi
 
-echo "R1: $R1_FILES"
-echo "R2: $R2_FILES"
+echo "R1: $R1_files"
+echo "R2: $R2_files"
+#===========================================================================
 
-# Load the required modules for megahit and prodigal
-module load megahit/1.2.9 StdEnv/2023 prodigal/2.6.3
-echo "Modules loaded"
+# Load modules
+module load megahit/1.2.9 StdEnv/2023
 
-# Invoke megahit
-# Run megahit on the bt2 unmapped reads
-megahit -1 $R1_FILES -2 $R2_FILES \
+# Run megahit
+megahit -1 $R1_files -2 $R2_files \
 --presets meta-sensitive \
 --continue \
 --min-contig-len 500 \
--t $SLURM_CPUS_PER_TASK \
---out-dir $MEGAHIT_OUT/${P_ID}
+-t ${SLURM_CPUS_PER_TASK} \
+--out-dir "${megahit_dir}/${subject_id}"
 
-date
-echo "The megahit analysis is done for $P_ID"
+# Rename megahit output
+mv "${megahit_dir}/${subject_id}/final.contigs.fa" "${megahit_dir}/${subject_id}/${subject_id}_final.contigs.fa"
 
-# Change the name of the output to include the sample ID
-mv $MEGAHIT_OUT/${P_ID}/final.contigs.fa $MEGAHIT_OUT/${P_ID}/${P_ID}_final.contigs.fa
+echo "Finished running megahit for $subject_id"
 
-# Now run prodigal on the final contigs for each sample, which should take less than 1 h
+echo "Starting prodigal workflow from megahit co-assembly"
 
-# Set variable for the directory containing trimmed, bowtie2_unmapped reads
-CONTIG_DIR=$MEGAHIT_OUT/${P_ID}
-PRODIGAL_OUT=$OUT_DIR/prodigal_co_assembly_out
-mkdir -p $PRODIGAL_OUT
-mkdir -p $PRODIGAL_OUT/${P_ID}
+# Load modules
+module load prodigal/2.6.3
 
+# Define variables for the input and output directories
+#============================================================================
+# Output from megahit becomes input for prodigal
+contig_dir="${megahit_dir}/${subject_id}"
+prodigal_dir="${project_dir}/prodigal_co_out"
+mkdir -p "$prodigal_dir/${subject_id}"
+#============================================================================
+
+# Run prodigal on the contigs
 # Uses the Standard Bacteria/Archaea translation table (11)
-prodigal -i $CONTIG_DIR/${P_ID}_final.contigs.fa \
+prodigal -i "${contig_dir}/${subject_id}_final.contigs.fa" \
 -p meta \
 -g 11 \
--a $PRODIGAL_OUT/${P_ID}/${P_ID}_prodigal_proteins.faa \
--d $PRODIGAL_OUT/${P_ID}/${P_ID}_prodigal_genes.fna \
--o $PRODIGAL_OUT/${P_ID}/${P_ID}_prodigal_annot.gff
+-a "${prodigal_dir}/${subject_id}/${subject_id}_prodigal_proteins.faa" \
+-d "${prodigal_dir}/${subject_id}/${subject_id}_prodigal_genes.fna" \
+-o "${prodigal_dir}/${subject_id}/${subject_id}_prodigal_annot.gff"
 
-echo "Finished running prodigal on $P_ID"
-date
+echo "Finished running prodigal on $subject_id"
