@@ -12,9 +12,10 @@ set -euo pipefail
 #===========================================================================
 project_dir="$SCRATCH/PRJEB76307_MGX"
 scripts_dir="$SCRATCH/castalagin_stool_metagenomics/PRJEB76307_metagenomics" # Scripts from repository
+out_dir="${project_dir}/metaphlan_out"
 #===========================================================================
 
-cd "${project_dir}"
+cd "${out_dir}"
 
 # Load modules
 module load StdEnv/2023 python/3.13.2 scipy-stack/2026a
