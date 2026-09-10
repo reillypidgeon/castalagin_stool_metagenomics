@@ -36,7 +36,7 @@ fi
 sleep 5
 
 # Get subject_id for this SLURM task
-subject_id=$(sed -n "${SLURM_ARRAY_TASK_ID}p" subject_ids.txt)
+subject_id=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "${scripts_dir}/subject_ids.txt")
 echo "SLURM task ${SLURM_ARRAY_TASK_ID} | Subject: $subject_id"
 
 # Now get timepoint directories
