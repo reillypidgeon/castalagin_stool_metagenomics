@@ -64,7 +64,7 @@ echo "Metaphlan pipeline finished"
 # Convert SGB profiles to GTDB taxonomy
 sgb_to_gtdb_profile.py -d $DB_DIR/mpa_vJun23_CHOCOPhlAnSGB_202403.pkl \
 -i $METAPHLAN_OUT/${SAMPLE_ID}_metaphlan_out.txt \
--o $METAPHLAN_OUT/${SAMPLE_ID}_metaphlan_out_GTDB.txt
+-o $METAPHLAN_OUT/${SAMPLE_ID}_metaphlan_out_GTDB.tsv
 
 echo "Converted SGB to GTDB taxonomy"
 
