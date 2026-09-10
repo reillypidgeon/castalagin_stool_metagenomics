@@ -71,7 +71,7 @@ fi
 module load diamond/2.1.11 StdEnv/2023 python/3.13.2
 
 # Now run diamond using the built diamond database
-echo "Running diamond"
+echo "Running diamond: queries FASTA file against prodigal-predicted proteins"
 
 diamond blastp \
   -q "$query" \
@@ -109,7 +109,7 @@ metadata="${diamond_db}/uhgp_genomes_all_metadata.tsv"
 #===========================================================================
 
 # Run diamond using the uhgp-100 database
-echo "Running diamond against the UHGP"
+echo "Running diamond: previously-generated best_hits FASTA against the UHGP"
 
 diamond blastp \
   -q "$query" \
