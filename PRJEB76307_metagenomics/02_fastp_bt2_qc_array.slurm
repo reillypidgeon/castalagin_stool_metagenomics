@@ -27,8 +27,9 @@ dirs=(${sample_dir}/*/)
 read_dir=${dirs[${SLURM_ARRAY_TASK_ID}]}
 sample_id=$(basename "$read_dir")
 
-R1=$(ls ${read_dir}/*_R1*.fastq.gz)
-R2=$(ls ${read_dir}/*_R2*.fastq.gz)
+# The read_dir variable already has a forward slash
+R1=$(ls ${read_dir}*_R1*.fastq.gz)
+R2=$(ls ${read_dir}*_R2*.fastq.gz)
 
 echo "Sample: ${sample_id}"
 echo "R1: $R1"
