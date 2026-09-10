@@ -9,6 +9,8 @@
 
 set -euo pipefail
 
+echo "Starting setup"
+
 # Unzip the tar.gz files and delete the gz files afterwards
 tar -xvf uhgp-100.tar.gz
 rm *.gz
