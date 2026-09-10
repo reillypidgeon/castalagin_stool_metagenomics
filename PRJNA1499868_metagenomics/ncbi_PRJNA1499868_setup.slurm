@@ -3,8 +3,8 @@
 #SBATCH --job-name=PRJNA1499868_setup
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
-#SBATCH --time=12:00:00
-#SBATCH --cpus-per-task=8
+#SBATCH --time=00:15:00
+#SBATCH --cpus-per-task=4
 #SBATCH --mem=32G
 
 set -euo pipefail
