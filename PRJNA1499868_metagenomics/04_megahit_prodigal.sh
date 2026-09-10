@@ -30,7 +30,7 @@ megahit -1 $R1 -2 $R2 \
 --presets meta-sensitive \
 --continue \
 --min-contig-len 500 \
--t $SLURM_CPUS_PER_TASK \
+-t ${SLURM_CPUS_PER_TASK} \
 --out-dir "${megahit_dir}"
 
 # Rename megahit output
@@ -47,7 +47,7 @@ module load prodigal/2.6.3
 #============================================================================
 # Output from megahit becomes input for prodigal
 prodigal_dir="${project_dir}/prodigal_out"
-mkdir -p $prodigal_dir
+mkdir -p "${prodigal_dir}"
 #============================================================================
 
 # Run prodigal on the contigs
@@ -55,8 +55,8 @@ mkdir -p $prodigal_dir
 prodigal -i "${megahit_dir}/${sample_id}_final.contigs.fa" \
 -p meta \
 -g 11 \
--a "$prodigal_dir/${sample_id}_prodigal_proteins.faa" \
--d "$prodigal_dir/${sample_id}_prodigal_genes.fna" \
--o "$prodigal_dir/${sample_id}_prodigal_annotations.gff"
+-a "${prodigal_dir}/${sample_id}_prodigal_proteins.faa" \
+-d "${prodigal_dir}/${sample_id}_prodigal_genes.fna" \
+-o "${prodigal_dir}/${sample_id}_prodigal_annotations.gff"
 
 echo "Finished running prodigal on sample ${sample_id}"
