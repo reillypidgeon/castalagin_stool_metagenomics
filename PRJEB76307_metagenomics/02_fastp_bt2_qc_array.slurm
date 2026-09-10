@@ -21,13 +21,14 @@ out_dir="${project_dir}/fastp_bt2_qc"
 mkdir -p "${out_dir}"
 #===========================================================================
 
-# Build array of directories - all directories have the same sample ID (e.g. 021_V1) as each read set
+# Build array of directories to extract sample_id and read paths
+#===========================================================================
 dirs=(${sample_dir}/*/)
 read_dir=${dirs[${SLURM_ARRAY_TASK_ID}]}
 sample_id=$(basename "$read_dir")
 
-R1=$(ls "${read_dir}/*_R1*.fastq.gz")
-R2=$(ls "${read_dir}/*_R2*.fastq.gz")
+R1=$(ls ${read_dir}/*_R1*.fastq.gz)
+R2=$(ls ${read_dir}/*_R2*.fastq.gz)
 
 echo "Sample: ${sample_id}"
 echo "R1: $R1"
@@ -38,6 +39,7 @@ fastqc_dir="${out_dir}/fastqc_out"
 fastp_dir="${out_dir}/fastp_dir/${sample_id}"
 bt2_dir="${out_dir}/bt2_out/${sample_id}"
 mkdir -p "${fastqc_dir}" "${fastp_dir}" "${bt2_dir}"
+#===========================================================================
 
 # Load modules
 module load fastqc/0.12.1 fastp/1.0.1
