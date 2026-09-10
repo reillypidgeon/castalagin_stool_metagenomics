@@ -13,24 +13,24 @@ DOI for BioRxiv or publication <br>
 
 ## Directory Overview
 ### PRJEB76307_metagenomics
-Scripts, metadata, and tables used in the analysis of metagenomics sequencing data from 
+Scripts, metadata, and tables used in the analysis of metagenomic sequencing data from 
 [Agrinier, A. L., et al. (2024). _Camu-camu decreases hepatic steatosis and liver injury markers in overweight, hypertriglyceridemic individuals: A randomized crossover trial_. Cell Rep Med 5(8): 101682.](https://doi.org/10.1016/j.xcrm.2024.101682)
 >ENA accession: [PRJEB76307](https://www.ebi.ac.uk/ena/browser/view/PRJEB76307) <br>
 >Clinical trial accession: [NCT04130321](https://clinicaltrials.gov/study/NCT04130321) <br>
 
 ### PRJNA1499868_metagenomics
-Scripts, metadata, and tables used to analyze metagenomics sequencing data from fecal sample MO67 in this study. <br>
+Scripts, metadata, and tables used to analyze metagenomic sequencing data from fecal sample MO67 in this study. <br>
 >NCBI BioProject: PRJNA1499868 <br>
 >NCBI SRA Accession: SRR39796052
 
-- `01_ncbi_PRJNA1499868_download.sh`: Shell script to download metagenomics sequencing reads from sample MO67
+- `01_ncbi_PRJNA1499868_download.sh`: Shell script to download metagenomic sequencing reads from sample MO67
 - `02_fastp_bt2_qc.slurm`: Shell (slurm) script to trim reads and remove host reads
 - `03_metaphlan.slurm`: Shell (slurm) script to determine relative abundance of taxa
 - `04_megahit_prodigal.slurm`: Shell (slurm) script to assemble reads into contigs and predict proteins
 - `05_diamond_uhgp.slurm`: Shell (slurm) script to search predicted proteins against the UHGP database
 
 ### database_downloads <br>
-Scripts for downloading and setting up the various databases used in the metagenomics analyses. <br>
+Scripts for downloading and setting up the various databases used in the metagenomic analyses. <br>
 These scripts require internet access for the download portion, then schedule jobs via the `sbatch` command for the setup portion.
 - `01_metaphlan_db_download.sh`: Shell script to download and set up the MetaPhlAn database (version mpa_vJun23_CHOCOPhlAnSGB_202403), which uses [GTDB release 207](https://github.com/biobakery/MetaPhlAn/blob/master/metaphlan/utils/mpa_vJun23_CHOCOPhlAnSGB_202403_SGB2GTDB_r207.tsv), for relative abundance determination
 - `02_uhgp_download.sh`: Shell script to download and set up the Unified Human Gastrointestinal Proteome diamond database (version 2.0.2), which uses [GTDB release 202](https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/human-gut/v2.0.2/README_v2.0.2.txt), for predicted protein matching
