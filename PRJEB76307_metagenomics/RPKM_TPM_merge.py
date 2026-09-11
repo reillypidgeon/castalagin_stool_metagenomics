@@ -21,3 +21,5 @@ merged_df = pd.concat(dfs, ignore_index=True)
 
 # Write output to TSV file
 merged_df[["gene_id", "counts", "length_bp", "RPKM", "TPM", "subject", "sample"]].to_csv(f"{base_dir}/merged_RPKM_TPM.tsv", sep="\t", index=False)
+
+print("Merge finished in python")
