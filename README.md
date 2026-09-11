@@ -18,13 +18,17 @@ Scripts, metadata, and tables used in the analysis of metagenomic sequencing dat
 >ENA accession: [PRJEB76307](https://www.ebi.ac.uk/ena/browser/view/PRJEB76307) <br>
 >Clinical trial accession: [NCT04130321](https://clinicaltrials.gov/study/NCT04130321) <br>
 
-- `01_ena_PRJEB76307_download.sh`: Shell script to download metagenomic sequencing reads from the clinical trial
+- `01_ena_PRJEB76307_download.sh`: Shell script to download metagenomic sequencing reads from the NCT04130321 clinical trial
 - `02_fastp_bt2_qc_array.slurm`: Shell (slurm) script to trim reads and remove host reads
 - `03_metaphlan_array.slurm`: Shell (slurm) script to determine relative abundance of taxa
-- `04_megahit_prodigal_co_array.slurm`: Shell (slurm) script to assemble reads into contigs and predict proteins
-- `05_diamond_uhgp_array.slurm`: Shell (slurm) script to search predicted proteins against the UHGP database, then to search the best hits against the UHGP database
-- `06_bt2_backmap_array.slurm`:
-- `07_featurecounts_array.slurm`:
+- `04_metaphlan_merge.slurm`: Shell (slurm) script to merge MetaPhlAn relative abundance tables (for all samples)
+- `05_megahit_prodigal_co_array.slurm`: Shell (slurm) script to co-assemble reads (by subject) into contigs and predict proteins
+- `06_diamond_co_array.slurm`: Shell (slurm) script to search user-defined queries (`queries.faa`) against predicted proteins
+- `07_diamond_co_merge.slurm`: Shell (slurm) script to merge diamond search tables (for all samples) and produce a best-hits FASTA file
+- `08_diamond_co_uhgp.slurm`: Shell (slurm) script to search the best-hits FASTA file against the UHGP database
+- `09_bt2_backmap_array.slurm`: Shell (slurm) script to map quality-controlled reads onto contigs from co-assemblies (for all samples)
+- `10_featurecounts_array.slurm`: Shell (slurm) script to count reads mapping to protein-coding sequences, then to determine the relative abundance as reads per kb per million mapped reads (RPKM) and transcripts per million (TPM)
+- `11_RPKM_TMP_merge.slurm`: Shell (slurm) script to merge RPKM and TPM relative abundance tables (for all samples)
 
 ### PRJNA1499868_metagenomics
 Scripts, metadata, and tables used to analyze metagenomic sequencing data from fecal sample MO67 in this study. <br>
@@ -35,7 +39,7 @@ Scripts, metadata, and tables used to analyze metagenomic sequencing data from f
 - `02_fastp_bt2_qc.slurm`: Shell (slurm) script to trim reads and remove host reads
 - `03_metaphlan.slurm`: Shell (slurm) script to determine relative abundance of taxa
 - `04_megahit_prodigal.slurm`: Shell (slurm) script to assemble reads into contigs and predict proteins
-- `05_diamond_uhgp.slurm`: Shell (slurm) script to search queries against predicted proteins, then to search the best hits against the UHGP database
+- `05_diamond_uhgp.slurm`: Shell (slurm) script to search user-defined queries (`queries.faa`) against predicted proteins, then to search the best-hits FASTA file against the UHGP database
 
 ### database_downloads <br>
 Scripts for downloading and setting up the various databases used in the metagenomic analyses. <br>
