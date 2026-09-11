@@ -113,8 +113,6 @@ echo "featureCounts completed. Output written to: ${fc_file}"
 
 # Define common variables
 #===========================================================================
-output_file=$fc_ra_dir/$sample_id/"${sample_id}_fc_ra.tsv"
-
 # Convert to real path to avoid confusion in Python
 fc_file=$(realpath "${fc_file}")
 gene_lengths=$(realpath "${gene_lengths}")
@@ -123,6 +121,9 @@ output_file=$(realpath "${output_file}")
 # Create output directory for featureCounts conversion to RPKM and TPM (relative abundance)
 fc_ra_dir="${project_dir}/fc_ra_out"
 mkdir -p "${fc_ra_dir}/${sample_id}"
+
+# Define relative abundance (normalization) output file path
+output_file="${fc_ra_dir}/${sample_id}/${sample_id}_fc_ra.tsv"
 #===========================================================================
 
 # Check if gene lengths file is found
