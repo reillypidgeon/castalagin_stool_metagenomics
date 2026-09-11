@@ -12,8 +12,7 @@ df_path = f"{diamond_dir}/{sample_id}_hits.tsv"
 
 # Import the dataframe and add titles to the columns
 df = pd.read_csv(df_path, sep="\t", header=None,
-	names=["qseqid","sseqid","pident","ppos","length","qlen","slen",
-  "qstart","qend","sstart","send","evalue","bitscore","full_qseq","full_sseq"])
+	names=["qseqid","sseqid","pident","ppos","length","qlen","slen","qstart","qend","sstart","send","evalue","bitscore","full_qseq","full_sseq"])
 
 # Filter by best hit(s) and keep the first instance of a best hit (by sseqid) if there's a tie
 best_hits_df = df.loc[df.groupby('sseqid')['pident'].idxmax()]
