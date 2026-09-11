@@ -10,7 +10,7 @@
 
 set -euo pipefail
 
-# Define variables
+# Define common variables
 #===========================================================================
 project_dir="$SCRATCH/PRJEB76307_MGX"
 sample_dir="${project_dir}/raw_reads" # This directory contains 66 sample directories containing paired-end reads R1 and R2 (downloaded from the ENA)
