@@ -46,13 +46,13 @@ if [[ ! -f "${proteins_clean}" ]]; then
   sed 's/\*$//' "$proteins" > "${proteins_clean}"
 fi
 
-# Look for the cleaned prodigal proteins FASTA file for the given sample ID
+# Look for the cleaned prodigal FASTA file
 if [[ ! -f "${proteins_clean}" ]]; then
   echo "WARNING: ${proteins_clean} not found; skipping"
   exit 0
 fi
 
-# Look for the query
+# Look for the query FASTA file
 if [[ ! -f "$query" ]]; then
   echo "ERROR: query file not found"
   exit 2
@@ -61,7 +61,7 @@ fi
 # Load the required modules for diamond and the Python script
 module load diamond/2.1.11 StdEnv/2023 python/3.13.2
 
-# Build the diamond database (if it doesn't already exist)
+# Build the diamond database if it doesn't already exist
 if [[ ! -f "${db_prefix}.dmnd" ]]; then
   echo "Building diamond database"
   diamond makedb \
