@@ -12,7 +12,7 @@ set -euo pipefail
 
 # The purpose of this workflow is to look for matches to known proteins (user-defined query file) in the predicted proteins from the co-assemblies
 
-# Define variables
+# Define common variables
 #===========================================================================
 project_dir="$SCRATCH/PRJEB76307_MGX"
 scripts_dir="$SCRATCH/castalagin_stool_metagenomics/PRJEB76307_metagenomics" # Scripts from repository
