@@ -1,7 +1,7 @@
 library(dplyr)
 library(readr)
 
-# Go to the directory that contains all the metadata files for different GTDB release versions
+# Go to the directory that contains all the metadata files for different GTDB release versions (should be the current directory)
 # These metadata tables were downloaded from: https://data.gtdb.ecogenomic.org/releases/
 
 # Load the metadata tables for each GTDB release version
