@@ -11,6 +11,7 @@
 set -euo pipefail
 
 # This script assembles reads from the same subject sampled at different timepoints (co-assembly)
+# Note that the array goes from 1-33 since an error is produced by one of the sed commands when using 0 as the starting number of the array
 
 # Define variables
 #===========================================================================
