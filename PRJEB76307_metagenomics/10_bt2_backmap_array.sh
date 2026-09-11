@@ -78,7 +78,7 @@ samtools view -bS "${bt2_output_prefix}.sam" > "${bt2_output_prefix}.bam"
 samtools sort -@ ${SLURM_CPUS_PER_TASK} "${bt2_output_prefix}.bam" -o "${bt2_output_prefix}_sorted.bam"
 
 # Create an index of the sorted BAM
-samtools index ${bt2_output_prefix}_sorted.bam
+samtools index "${bt2_output_prefix}_sorted.bam"
 
 # Remove the SAM file
 rm "${bt2_output_prefix}.sam"
