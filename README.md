@@ -80,19 +80,23 @@ sbatch 02_fastp_bt2_qc.slurm
 > - Other scripts are called by the numbered scripts
 
 ### Tools and packages used in analyses
-  1. Python (version )
-  2. R (version)
-  3. [GNU Parallel](https://doi.org/10.5281/zenodo.7958356) (version )
-  4. Fastp (version )
-  5. FastQC (version )
-  6. Bowtie2 (version )
-  7. MetaPhlAn (version 4.. )
-  8. MEGAHIT (version )
-  9. Prodigal (version )
-  10. FeatureCounts (version )
-  11. Diamond (version )
-  12. MMSeqs2 (version )
-  13. SciPy-Stack (version 2026a)
+  1. python (version 3.13.2)
+  2. r (version 4.6.1)
+  3. StdEnv (version 2023)
+  4. gcc (version 12.3)
+  5. [GNU Parallel](https://doi.org/10.5281/zenodo.7958356)
+  6. scipy-stack (version 2026a)
+  7. fastp (version 1.0.1 )
+  8. fastqc (version 0.12.1)
+  9. bowtie2 (version 2.5.4)
+  10. metaphlan (version 4.1.1)
+  11. blast (version 2.2.26)
+  12. samtools (version 1.22.1)
+  13. bedtools (version 2.31.0)
+  14. megahit (version 1.2.9)
+  15. prodigal (version 2.6.3)
+  16. subread (version 2.0.6)
+  17. diamond (version 2.1.11)
 
 ## LICENSE
 GNU GENERAL PUBLIC LICENSE (Version 3, 29 June 2007) <br>
