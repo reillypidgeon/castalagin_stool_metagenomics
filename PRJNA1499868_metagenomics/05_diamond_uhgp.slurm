@@ -32,9 +32,9 @@ db_prefix="${diamond_dir}/${sample_id}_proteins_db"
 hits_tsv="${diamond_dir}/${sample_id}_hits.tsv"
 
 # diamond tool thresholds
-min_id=60 # Could filter more stringently afterwards
-s_cov=60 # Must cover most of the subject (predicted proteins)
-k_val=0   # unlimited hits per query per sample
+min_seq_id=60 # Could filter more stringently afterwards
+min_coverage=60 # Must cover most of the subject (predicted proteins)
+k_value=0   # unlimited hits per query per sample
 #===========================================================================
 
 # Checks and cleanup
@@ -78,9 +78,9 @@ diamond blastp \
   -d "${db_prefix}" \
   -o "${hits_tsv}" \
   --outfmt 6 qseqid sseqid pident ppos length qlen slen qstart qend sstart send evalue bitscore full_qseq full_sseq \
-  --id "${min_id}" \
-  --subject-cover "${s_cov}" \
-  -k "${k_val}" \
+  --id "${min_seq_id}" \
+  --subject-cover "${min_coverage}" \
+  -k "${k_value}" \
   --threads "${SLURM_CPUS_PER_TASK}"
 
 echo "Sample finished. Hits: $(wc -l < "${hits_tsv}" 2>/dev/null || echo 0)"
@@ -116,8 +116,8 @@ diamond blastp \
   -d "${diamond_db}/uhgp-100" \
   -o "${hits_tsv}" \
   --outfmt 6 qseqid sseqid pident ppos length qlen slen qstart qend sstart send evalue bitscore full_qseq full_sseq \
-  --id ${min_id} \
-  -k ${k_val} \
+  --id ${min_seq_id} \
+  -k ${k_value} \
   --threads ${SLURM_CPUS_PER_TASK}
 
 echo "Finished search against the UHGP"
