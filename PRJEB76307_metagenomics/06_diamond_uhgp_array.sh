@@ -54,23 +54,23 @@ if [ ! -f "${proteins_clean}" ]; then
   sed 's/\*$//' "$proteins" > "${proteins_clean}"
 fi
 
-# Look for the query file
-if [ ! -f "$query" ]; then
-  echo "ERROR: queries.faa not found"
-  exit 2
-fi
-
-# Look for the cleaned Prodigal protein FASTA file for the given sample ID
+# Look for the cleaned prodigal FASTA file
 if [ ! -f "${proteins_clean}" ]; then
   echo "WARNING: ${proteins_clean} not found for sample $sample_id; skipping"
   exit 0
 fi
 
-# Load the required modules for diamond
+# Look for the query FASTA file
+if [ ! -f "$query" ]; then
+  echo "ERROR: queries.faa not found"
+  exit 2
+fi
+
+# Load the required modules for diamond and the Python script
 module load diamond/2.1.11 StdEnv/2023 python/3.13.2
 echo "Modules loaded"
 
-# Build the DIAMOND DB (if it doesn't already exist)
+# Build the diamond database if it doesn't already exist
 if [ ! -f "${db_prefix}.dmnd" ]; then
   echo "Building DIAMOND DB for $sample_id"
   diamond makedb \
@@ -79,8 +79,8 @@ if [ ! -f "${db_prefix}.dmnd" ]; then
 fi
 #===========================================================================
 
-# Now run DIAMOND using the DB
-echo "Running DIAMOND (blastp mode) for $sample_id"
+# Now run diamond using the built diamond database
+echo "Running DIAMOND (blastp mode) for $sample_id using the $query FASTA file as the query and ${db_prefix} as the database"
 
 diamond blastp \
   -q "$query" \
