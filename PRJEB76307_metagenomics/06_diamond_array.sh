@@ -64,8 +64,8 @@ if [ ! -f "$query" ]; then
   exit 2
 fi
 
-# Load the required modules for diamond and the Python script
-module load diamond/2.1.11 StdEnv/2023 python/3.13.2
+# Load the required modules for diamond
+module load diamond/2.1.11 StdEnv/2023
 echo "Modules loaded"
 
 # Build the diamond database if it doesn't already exist
