@@ -10,9 +10,7 @@
 
 set -euo pipefail
 
-# The purpose of this workflow is to look for matches to known proteins
-# The top hits from the query vs. Prodigal-predicted proteins are then searched against the Unified Human Gastrointestinal proteome (UHGP) to assign preliminary taxonomy 
-# According to the GTDB r202
+# The purpose of this workflow is to look for matches to known proteins (user-defined query file) in the predicted proteins from the co-assemblies
 
 # Define variables
 #===========================================================================
@@ -93,15 +91,3 @@ diamond blastp \
   --threads ${SLURM_CPUS_PER_TASK}
 
 echo "Sample ${sample_id} finished. Hits: $(wc -l < "${hits_tsv}" 2>/dev/null || echo 0)"
-
-### Stopped here - need to add the UHGP portion
-
-
-
-
-
-# Define variables for the search against the UHGP
-#===========================================================================
-# Create output directory for diamond_uhgp output
-diamond_uhgp_dir="${project_dir}/diamond_uhgp_out"
-mkdir -p "${diamond_uhgp_dir}"
