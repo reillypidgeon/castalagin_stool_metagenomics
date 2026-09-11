@@ -2,7 +2,7 @@
 
 import pandas as pd
 import glob
-import glob
+import os
 
 # Define the base directory based on the exported variable
 base_dir = os.getenv("fc_ra_dir")
