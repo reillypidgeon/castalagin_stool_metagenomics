@@ -103,9 +103,9 @@ mkdir -p "${diamond_uhgp_dir}"
 
 # Set the diamond tool input, database, and output file names
 query="${diamond_dir}/${sample_id}_best_hits.fasta"
-diamond_db="$SCRATCH/uhgp" # See castalagin_stool_metagenomics/database_downloads/02_uhgp_download.sh
+uhgp_dir="$SCRATCH/uhgp" # See castalagin_stool_metagenomics/database_downloads/02_uhgp_download.sh
 hits_tsv="${diamond_uhgp_dir}/all_hits_uhgp-100.tsv"
-metadata="${diamond_db}/uhgp_genomes_all_metadata.tsv"
+metadata="${uhgp_dir}/uhgp_genomes_all_metadata.tsv"
 #===========================================================================
 
 # Run diamond using the uhgp-100 database
@@ -113,7 +113,7 @@ echo "Running diamond: previously generated best_hits FASTA against the UHGP"
 
 diamond blastp \
   -q "$query" \
-  -d "${diamond_db}/uhgp-100" \
+  -d "${uhgp_dir}/uhgp-100" \
   -o "${hits_tsv}" \
   --outfmt 6 qseqid sseqid pident ppos length qlen slen qstart qend sstart send evalue bitscore full_qseq full_sseq \
   --id ${min_seq_id} \
