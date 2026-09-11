@@ -58,8 +58,8 @@ if [[ ! -f "$query" ]]; then
   exit 2
 fi
 
-# Load the required modules for diamond and the Python script
-module load diamond/2.1.11 StdEnv/2023 python/3.13.2
+# Load the required modules for diamond
+module load diamond/2.1.11 StdEnv/2023
 
 # Build the diamond database if it doesn't already exist
 if [[ ! -f "${db_prefix}.dmnd" ]]; then
@@ -86,7 +86,7 @@ diamond blastp \
 echo "Sample finished. Hits: $(wc -l < "${hits_tsv}" 2>/dev/null || echo 0)"
 
 # Now annotate the resulting diamond output table
-module load scipy-stack/2026a
+module load python/3.13.2 scipy-stack/2026a
 
 # Export variables
 export diamond_dir
