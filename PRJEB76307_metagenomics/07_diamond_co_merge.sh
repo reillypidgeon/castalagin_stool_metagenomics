@@ -20,3 +20,5 @@ module load StdEnv/2023 python/3.13.2 scipy-stack/2026a
 cd "${diamond_dir}"
 
 python3 "${scripts_dir}/diamond_co_best_hits.py"
+
+echo "Finished merging tables using script $0"
