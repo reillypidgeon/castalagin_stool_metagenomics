@@ -15,7 +15,7 @@ set -euo pipefail
 project_dir="$SCRATCH/PRJEB76307_MGX"
 sample_dir="${project_dir}/fastp_bt2_qc/bt2_out" # This directory contains 66 sample directories containing paired-end reads R1 and R2 (after removing reads mapped to the human genome
 scripts_dir="$SCRATCH/castalagin_stool_metagenomics/PRJEB76307_metagenomics" # Scripts from repository
-megahit_dir="${project_dir}/megahit_co_out"
+megahit_dir="${project_dir}/megahit_co_out" # Contains contigs from the assembly step
 
 # Create output directory
 bt2_backmap_dir="${project_dir}/bt2_backmap_out"
@@ -36,57 +36,51 @@ R2=$(ls ${read_dir}*unaligned_R2*.fastq.gz)
 # Define the corresponding megahit co-assemblies 
 assembly="${megahit_dir}/${subject_id}/${subject_id}_final.contigs.fa"
 
+# Create a sub-directory for the bt2 output
+bt2_sample_id_dir="$bt2_backmap_dir/${sample_id}"
+mkdir -p "${bt2_sample_id_dir}"
+#===========================================================================
+
 # Print out the inputs for bowtie2
-echo "Sample: $SAMPLE_ID"
+echo "Sample: ${sample_id}"
+echo "Subject: ${subject_id}"
 echo "R1: $R1"
 echo "R2: $R2"
-echo "Subject: $subject_id"
 echo "Megahit co-assembly path: $assembly"
 
-# Create a sample ID specific output directory in BT2_BACKMAP_OUT
-BT2_SAMPLE_ID=$BT2_BACKMAP_OUT/${SAMPLE_ID}
-mkdir -p $BT2_SAMPLE_ID
-
-
-
-
-
-
-# Load the required modules for bowtie2 and samtools
-module load StdEnv/2023 bowtie2/2.5.4 samtools/1.22.1 python/3.11.5
+# Load modules
+module load StdEnv/2023 bowtie2/2.5.4 samtools/1.22.1 python/3.13.2
 echo "Modules loaded"
 
-# Build a bowtie2 index using the prodigal output from the megahit co-assembly for each patient ID (e.g. 021)
-cd $BT2_SAMPLE_ID # Go to the output folder for this sample ID
-
-if [ ! -e "index_${subject_id}.1.bt2" ] && [ ! -e "index_${subject_id}.1.bt2l" ]; then
-	echo "Bowtie2 index not found. Building now for $subject_id"
-	bowtie2-build $assembly index_${subject_id}
-	echo "==============================="
-	ls
+# Build a bowtie2 index using the megahit co-assembly for each subject_id
+if [ ! -e "${bt2_sample_id_dir}/index_${subject_id}.1.bt2" ] && [ ! -e "${bt2_sample_id_dir}/index_${subject_id}.1.bt2l" ]; then
+	echo "Bowtie2 index for ${subject_id} not found
+	echo "Building one from $assembly"
+	bowtie2-build "$assembly" "${bt2_sample_id_dir}/index_${subject_id}"
 fi
 
-cd ..
+# Define bt2 output as variable
+bt2_output_prefix="${bt2_sample_id_dir}/${sample_id}_bt2_backmap"
 
-# Map the R1 and R2 reads to the newly created bowtie2 index
-bowtie2 -x $BT2_SAMPLE_ID/"index_${subject_id}" \
+# Map the R1 and R2 reads to the bowtie2 index
+bowtie2 -x "${bt2_sample_id_dir}/index_${subject_id}" \
 --fr --quiet \
--p $SLURM_CPUS_PER_TASK \
+-p ${SLURM_CPUS_PER_TASK} \
 -1 $R1 \
 -2 $R2 \
--S $BT2_SAMPLE_ID/${SAMPLE_ID}_bt2_backmap.sam \
-2> $BT2_SAMPLE_ID/${SAMPLE_ID}_bt2_backmap.log
-
-# Define bt2 output as variables
-SAM=$BT2_SAMPLE_ID/${SAMPLE_ID}_bt2_backmap.sam
-BAM=$BT2_SAMPLE_ID/${SAMPLE_ID}_bt2_backmap.bam
+-S "${bt2_output_prefix}.sam" \
+2> "${bt2_output_prefix}.log"
 
 # Convert SAM to BAM
-samtools view -bS "${SAM}" > "${BAM}"
+samtools view -bS "${bt2_output_prefix}.sam" > "${bt2_output_prefix}.bam"
+
 # Sort the BAM
-samtools sort -@ $SLURM_CPUS_PER_TASK "${BAM}" -o "$BT2_SAMPLE_ID/${SAMPLE_ID}_bt2_backmap_sorted.bam"
+samtools sort -@ ${SLURM_CPUS_PER_TASK} "${bt2_output_prefix}.bam" -o "${bt2_output_prefix}_sorted.bam"
+
 # Create an index of the sorted BAM
-samtools index $BT2_SAMPLE_ID/${SAMPLE_ID}_bt2_backmap_sorted.bam
+samtools index ${bt2_output_prefix}_sorted.bam
+
 # Remove the SAM file
-rm $SAM
-echo "Finished mapping with bowtie2. BAM output: $BT2_SAMPLE_ID/${SAMPLE_ID}_bt2_backmap_sorted.bam"
+rm "${bt2_output_prefix}.sam"
+
+echo "Finished mapping with bowtie2. BAM output: ${bt2_output_prefix}_sorted.bam"
