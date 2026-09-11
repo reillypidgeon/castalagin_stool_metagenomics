@@ -13,7 +13,7 @@ set -euo pipefail
 # This script assembles reads from the same subject sampled at different timepoints (co-assembly)
 # Note that the array goes from 1-33 since an error is produced by one of the sed commands when using 0 as the starting number of the array
 
-# Define variables
+# Define common variables
 #===========================================================================
 project_dir="$SCRATCH/PRJEB76307_MGX"
 sample_dir="${project_dir}/fastp_bt2_qc/bt2_out" # This directory contains 66 sample directories containing paired-end reads R1 and R2 (after removing reads mapped to the human genome)
