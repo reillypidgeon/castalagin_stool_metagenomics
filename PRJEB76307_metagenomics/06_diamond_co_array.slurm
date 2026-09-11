@@ -21,31 +21,31 @@ prodigal_dir="${project_dir}/prodigal_co_out"
 # Set the diamond tool thresholds
 min_seq_id=60 # Could filter more stringently afterwards
 min_coverage=60 # Must cover most of the subject (predicted proteins)
-k_value=0   # Unlimited hits per query per sample
+k_value=0   # Unlimited hits per query per subject
 
 # Create output directory for the initial diamond output
 diamond_dir="${project_dir}/diamond_co_out"
 mkdir -p "${diamond_dir}"
 #===========================================================================
 
-# Build array of directories to extract sample_id and read paths
+# Build array of directories to extract subject_id and read paths
 #===========================================================================
 dirs=(${prodigal_dir}/*/)
 protein_dir=${dirs[$SLURM_ARRAY_TASK_ID]}
-sample_id=$(basename "$protein_dir")
+subject_id=$(basename "$protein_dir")
 
 # Define locations of proteins from prodigal output and query sequences
-proteins=${protein_dir}${sample_id}_prodigal_proteins.faa
+proteins=${protein_dir}${subject_id}_prodigal_proteins.faa
 query="${scripts_dir}/queries.faa"
 
-db_prefix="${diamond_dir}/${sample_id}_prot_db"
-hits_tsv="${diamond_dir}/${sample_id}_hits.tsv"
+db_prefix="${diamond_dir}/${subject_id}_prot_db"
+hits_tsv="${diamond_dir}/${subject_id}_hits.tsv"
 #===========================================================================
 
 # Checks and cleanup
 #===========================================================================
 # As a preventative measure, remove all * (stops) from the proteins fasta
-proteins_clean="${protein_dir}${sample_id}_prodigal_proteins_no_stop.faa"
+proteins_clean="${protein_dir}${subject_id}_prodigal_proteins_no_stop.faa"
 
 # Strip trailing stop codons once from the original protein FASTA and produce a new (cleaned) FASTA
 if [ ! -f "${proteins_clean}" ]; then
@@ -54,7 +54,7 @@ fi
 
 # Look for the cleaned prodigal FASTA file
 if [ ! -f "${proteins_clean}" ]; then
-  echo "WARNING: ${proteins_clean} not found for sample $sample_id; skipping"
+  echo "WARNING: ${proteins_clean} not found for subject $subject_id; skipping"
   exit 0
 fi
 
@@ -70,7 +70,7 @@ echo "Modules loaded"
 
 # Build the diamond database if it doesn't already exist
 if [ ! -f "${db_prefix}.dmnd" ]; then
-  echo "Building DIAMOND DB for $sample_id"
+  echo "Building DIAMOND DB for $subject_id"
   diamond makedb \
     --in "$proteins_clean" \
     -d "$db_prefix"
@@ -78,7 +78,7 @@ fi
 #===========================================================================
 
 # Now run diamond using the built diamond database
-echo "Running DIAMOND (blastp mode) for $sample_id using the $query FASTA file as the query and ${db_prefix} as the database"
+echo "Running DIAMOND (blastp mode) for $subject_id using the $query FASTA file as the query and ${db_prefix} as the database"
 
 diamond blastp \
   -q "$query" \
@@ -90,4 +90,4 @@ diamond blastp \
   -k ${k_value} \
   --threads ${SLURM_CPUS_PER_TASK}
 
-echo "Sample ${sample_id} finished. Hits: $(wc -l < "${hits_tsv}" 2>/dev/null || echo 0)"
+echo "Subject ${subject_id} finished. Hits: $(wc -l < "${hits_tsv}" 2>/dev/null || echo 0)"
