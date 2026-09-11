@@ -93,7 +93,7 @@ export diamond_dir
 export sample_id
 
 # Generate a best hits table and a best-hits FASTA file in the diamond_out directory
-python3 "${scripts_dir}/uhgp_best_hits.py"
+python3 "${scripts_dir}/diamond_best_hits.py"
 
 # Define variables for the search against the UHGP
 #===========================================================================
@@ -109,7 +109,7 @@ metadata="${diamond_db}/uhgp_genomes_all_metadata.tsv"
 #===========================================================================
 
 # Run diamond using the uhgp-100 database
-echo "Running diamond: previously-generated best_hits FASTA against the UHGP"
+echo "Running diamond: previously generated best_hits FASTA against the UHGP"
 
 diamond blastp \
   -q "$query" \
@@ -122,12 +122,12 @@ diamond blastp \
 
 echo "Finished search against the UHGP"
 
-# Annotate the UHGP output table and extract the best hits from the diamond search
+# Add metadata to the UHGP output table and extract the best hits from the diamond search
 export diamond_uhgp_dir
 export hits_tsv
 export metadata
 
-python3 "${scripts_dir}/uhgp_annotate_tables.py"
+python3 "${scripts_dir}/diamond_uhgp_annotate.py"
 
 echo "Finished merging the diamond UHGP table with UHGP metadata"
 
