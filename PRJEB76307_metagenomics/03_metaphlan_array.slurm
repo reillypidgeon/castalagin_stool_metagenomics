@@ -10,7 +10,7 @@
 
 set -euo pipefail
 
-# Define variables
+# Define common variables
 #===========================================================================
 project_dir="$SCRATCH/PRJEB76307_MGX"
 sample_dir="${project_dir}/fastp_bt2_qc/bt2_out" # This directory contains 66 sample directories containing paired-end reads R1 and R2 (after removing reads mapped to the human genome)
