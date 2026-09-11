@@ -24,6 +24,7 @@ mkdir -p "${out_dir}"
 #=======================================================================
 
 # Load the required modules
+# Based on: https://docs.alliancecan.ca/wiki/MetaPhlAn
 module load gcc blast samtools bedtools python/3.13.2 bowtie2 StdEnv/2023
 
 # Generate your virtual environment in $SLURM_TMPDIR
