@@ -22,7 +22,7 @@ parallel -j 3 wget ::: "${gtdb_r202}" "${gtdb_r207}" "${gtdb_r232}"
 module load StdEnv/2023 gcc/12.3 r/4.6.1
 
 Rscript << 'EOF'
-if (!requireNamespace("dplyr", quietly = TRUE)) {install.packages("dplyr")}
+if (!requireNamespace("tidyverse", quietly = TRUE)) {install.packages("tidyverse")}
 EOF
 
 # After these are downloaded, schedule a job to untar & unzip the database
