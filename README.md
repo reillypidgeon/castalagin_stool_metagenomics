@@ -22,7 +22,7 @@ Scripts, metadata, and tables used in the analysis of metagenomic sequencing dat
 - `01_ena_PRJEB76307_download.sh`: Shell script to download metagenomic sequencing reads from the NCT04130321 clinical trial
 - `02_fastp_bt2_qc_array.slurm`: Shell (slurm) script to trim reads and remove host reads
 - `03_metaphlan_array.slurm`: Shell (slurm) script to determine relative abundance of taxa
-- `04_metaphlan_merge.slurm`: Shell (slurm) script to merge MetaPhlAn relative abundance tables (for all samples)
+- `04_metaphlan_merge.slurm`: Shell (slurm) script to merge MetaPhlAn relative abundance tables (for all samples) and perform alpha diversity, beta diversity, and [MaAsLin3](https://github.com/biobakery/maaslin3) (Microbiome Multivariable Associations with Linear Models) analyses
 - `05_megahit_prodigal_co_array.slurm`: Shell (slurm) script to co-assemble reads (by subject) into contigs and predict proteins
 - `06_diamond_co_array.slurm`: Shell (slurm) script to search user-defined queries (`queries.faa`) against predicted proteins
 - `07_diamond_co_merge.slurm`: Shell (slurm) script to merge diamond search tables (for all samples) and produce a best-hits FASTA file
