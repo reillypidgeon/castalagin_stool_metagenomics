@@ -13,6 +13,8 @@ set -euo pipefail
 project_dir="$SCRATCH/PRJEB76307_MGX"
 scripts_dir="$SCRATCH/castalagin_stool_metagenomics/PRJEB76307_metagenomics" # Scripts from repository
 metaphlan_dir="${project_dir}/metaphlan_out"
+metaphlan_file="merged_metaphlan_GTDB.tsv"
+metadata_file="${scripts_dir}/sample_metadata.tsv"
 #===========================================================================
 
 cd "${metaphlan_dir}"
@@ -27,6 +29,6 @@ python3 "${scripts_dir}/metaphlan_merge.py"
 module load gcc/12.3 r/4.6.1
 
 # Perform alpha-diversity, beta-diversity, and maaslin3 analyses
-Rscript "${scripts_dir}/alpha_beta_maaslin3.R" "merged_metaphlan_GTDB.tsv" "${scripts_dir}/sample_metadata.tsv"
+Rscript "${scripts_dir}/alpha_beta_maaslin3.R" "${metaphlan_file}" "${metadata_file}"
 
 echo "Finished MetaPhlAn analyses"
