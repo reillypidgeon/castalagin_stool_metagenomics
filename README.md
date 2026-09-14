@@ -30,6 +30,14 @@ Scripts, metadata, and tables used in the analysis of metagenomic sequencing dat
 - `09_bt2_backmap_array.slurm`: Shell (slurm) script to map quality-controlled reads onto contigs from co-assemblies (for all samples)
 - `10_featurecounts_array.slurm`: Shell (slurm) script to count reads mapping to protein-coding sequences, then to determine the relative abundance as reads per kb per million mapped reads (RPKM) and transcripts per million (TPM)
 - `11_RPKM_TMP_merge.slurm`: Shell (slurm) script to merge RPKM and TPM relative abundance tables (for all samples)
+- Multiple utility scripts (mostly Python)
+- `alpha_beta_maaslin3.R`: R script used to analyze MetaPhlAn output
+- `
+- `sample_metadata.tsv`: Sample metadata for the `alpha_beta_maaslin3.R` script
+- `queries.faa`: Query FASTA file for diamond search
+- 
+- 
+- 
 
 ### PRJNA1499868_metagenomics
 Scripts, metadata, and tables used to analyze metagenomic sequencing data from fecal sample MO67 in this study. <br>
@@ -50,7 +58,9 @@ These scripts require internet access for the download portion, then schedule jo
 - `03_t2t_hg39_setup.sh`: Shell script to download and set up the Telomere-to-Telomere (t2t) human genome (version GCF_009914755.1_T2T-CHM13v2.0) bowtie2 database for human read removal
 
 ### gtdb_versions
+- '01_gtdb_version_consolidation.sh: 
 - `gtdb_version_consolidation.R`: R script to build a table of GTDB version (releases 202, 207, 232) equivalence based on releases relevant to the analyses in this manuscript.
+- 
 
 ## Usage
 As mentioned above, the scripts in this code repository were not optimized for portability. <br>
