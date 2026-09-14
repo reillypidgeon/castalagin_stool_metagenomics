@@ -1,4 +1,4 @@
-sample	patient	timepoint	treatment	reads	log_reads
+sample_id	subject_id	timepoint	treatment	reads	log_reads
 001_V1	001	V1	pre	62456642	7.795578631
 001_V2	001	V2	post	57010741	7.755956686
 002_V1	002	V1	pre	62753082	7.79763506
