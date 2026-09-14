@@ -10,22 +10,25 @@ library(stringr)
 library(vegan)
 library(ggplot2)
 
+
+
+
 #===================== Table Import and Setup ============================================================================
 
 # Running this script from a project directory that contains tool output directories 
 # Import the full GTDB converted table for the study (metaphlan4 output)
-metaphlan_path <- "metaphlan_out/merged_metaphlan_GTDB.tsv"
-metaphlan_table <- read.csv(metaphlan_path, row.names = 1, sep = '\t', check.names = FALSE)
+metaphlan_path <- "merged_metaphlan_GTDB.tsv"
+metaphlan_table <- read.csv("merged_metaphlan_GTDB.tsv", row.names = 1, sep = '\t', check.names = FALSE)
 
 # Import the metadata associated with the study (already in the maaslin3 output directory)
 metadata_path <- "maaslin3_out/sample_metadata.tsv"
 metadata_table <- read.csv(metadata_path, row.names = 1, sep = '\t', check.names = FALSE)
 
-# Add a sample_id column based on the row name
+# Add a sample_id column based on the row name (which was originally sample_id)
 metadata_table$sample_id <- rownames(metadata_table)
 
-# Also add a "P" to each patient number to keep as a categorical variable
-metadata_table$patient <- paste0("P", metadata_table$patient)
+# Also add a "P" to each subject_id number to keep as a categorical variable
+metadata_table$subject_id <- paste0("P", metadata_table$subject_id)
 
 # Only keep the rows with species flags in the metaphlan table (s__)
 taxa <- rownames(metaphlan_table)
