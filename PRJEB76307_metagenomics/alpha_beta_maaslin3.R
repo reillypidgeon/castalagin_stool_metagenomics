@@ -10,19 +10,24 @@ library(stringr)
 library(vegan)
 library(ggplot2)
 
-
-
-
-#===================== Table Import and Setup ============================================================================
-
 # Running this script from a project directory that contains tool output directories 
-# Import the full GTDB converted table for the study (metaphlan4 output)
-metaphlan_path <- "merged_metaphlan_GTDB.tsv"
-metaphlan_table <- read.csv("merged_metaphlan_GTDB.tsv", row.names = 1, sep = '\t', check.names = FALSE)
 
-# Import the metadata associated with the study (already in the maaslin3 output directory)
-metadata_path <- "maaslin3_out/sample_metadata.tsv"
-metadata_table <- read.csv(metadata_path, row.names = 1, sep = '\t', check.names = FALSE)
+#===================== Table Import and Setup =====================
+
+# Take positional input
+args <- commandArgs(trailingOnly = TRUE)
+
+if (length(args) < 2) {
+  stop("Error: Invalid number of arguments.\nUsage: Rscript alpha_beta_maaslin3.R <merged_metaphlan_file> <metadata_file>", call. = FALSE)
+}
+
+# Import the full GTDB converted metaphlan table for the study (metaphlan output)
+metaphlan_file <- args[1]
+metaphlan_table <- read.csv(metaphlan_file, row.names = 1, sep = '\t', check.names = FALSE)
+
+# Import the metadata associated with the study
+metadata_file <- args[2]
+metadata_table <- read.csv(metadata_file, row.names = 1, sep = '\t', check.names = FALSE)
 
 # Add a sample_id column based on the row name (which was originally sample_id)
 metadata_table$sample_id <- rownames(metadata_table)
@@ -44,13 +49,12 @@ taxa_rename <- sub(".*f__", "", taxa_rename) # If we cut after the family level 
 print(taxa_rename)
 rownames(metaphlan_table_species) <- taxa_rename
 
-
 # Transpose the metaphlan_table_species
 metaphlan_table_species_t <- as.data.frame(t(metaphlan_table_species))
 
-# Now, all tables have been appropriately set up for downstream analyses
+print("All tables have been appropriately set up for downstream analyses")
 
-#===================== Vegan - Alpha Diversity ============================================================================
+#===================== Vegan - Alpha Diversity =====================
 
 # Calculate the alpha diversity and add to the metadata table
 metadata_table$shannon <- diversity(metaphlan_table_species_t, index = "shannon")
@@ -67,7 +71,7 @@ with(metadata_table, wilcox.test(shannon[treatment == "pre"], shannon[treatment 
 with(metadata_table, wilcox.test(simpson[treatment == "pre"], simpson[treatment == "post"], paired = TRUE))
 with(metadata_table, wilcox.test(richness[treatment == "pre"], richness[treatment == "post"], paired = TRUE)) # Note that there are ties here which don't allow for proper p value calculation
 
-#===================== Vegan - Beta Diversity ============================================================================
+#===================== Vegan - Beta Diversity =====================
 
 # Calculate distances using different methods
 bray <- vegdist(metaphlan_table_species_t, method = "bray")
@@ -121,7 +125,7 @@ ggplot(ordination_r_aitchison_merge, aes(x = PCoA1, y = PCoA2, color = treatment
   labs(x = paste0("PCoA1 (", var_r_aitchison[1], "%)"), y = paste0("PCoA2 (", var_r_aitchison[2], "%)"), title = paste0("Robust Aitchison: R^2 = ",permanova_r_aitchison$R2[1],", p = ",permanova_r_aitchison$`Pr(>F)`[1],""))
 
 
-#====================== MaasLin3 - Linear Models ========================================================================
+#====================== MaasLin3 - Linear Models =====================
 
 # Factor the metadata table (treatment)
 # Positive coefficient in results is increased after treatment
