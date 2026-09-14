@@ -1,6 +1,6 @@
 # Note on running the R code in this directory
 The `gtdb_version_consolidation.R` script in this directory can be run in RStudio if desired. The directory containing the 3 metadata tables will need to be specified or the working directory can be changed using the `setwd` command. <br>
-The metadata tables can be downloaded from the following links (note that some are `.tar.gz` and one is `.tsv.gz`):
+The metadata tables can be downloaded from the following links (note that some files are `.tar.gz` and one is `.tsv.gz`):
 ```
 base_url="https://data.gtdb.ecogenomic.org/releases"
 gtdb_r202="${base_url}/release202/202.0/bac120_metadata_r202.tar.gz"
