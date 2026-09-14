@@ -17,8 +17,16 @@ out_dir="${project_dir}/metaphlan_out"
 
 cd "${out_dir}"
 
-# Load modules
+# Load modules for Python
 module load StdEnv/2023 python/3.13.2 scipy-stack/2026a
 
 # Merge the MetaPhlAn output tables for all samples
 python3 "${scripts_dir}/metaphlan_merge.py"
+
+# Load module for R
+module load gcc/12.3 r/4.6.1
+
+# Perform alpha-diversity, beta-diversity, and maaslin3 analyses
+Rscript "${scripts_dir}/alpha_beta_maaslin3.R"
+
+echo "Finished MetaPhlAn analyses"
