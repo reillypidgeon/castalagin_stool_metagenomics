@@ -124,8 +124,8 @@ install.packages(c("dplyr", "readr", "tibble", "stringr", "vegan", "ggplot2"))
   19. readr (version 2.2.0)
   20. maaslin3 (version 1.5.6)
   21. tibble (version 3.3.1)
-  22. stringr (version )
-  23. vegan (version)
+  22. stringr (version 1.6.0)
+  23. vegan (version 2.7.6)
   24. ggplot2 (version 4.0.3)
 
 ## LICENSE
