@@ -4,8 +4,8 @@
 # From the login node (internet access needed)
 scripts_dir="$SCRATCH/castalagin_stool_metagenomics/gtdb_versions"
 
-# Ensure tidyverse is installed by running the following line in an interactive R session:
-install.packages("tidyverse") # This can take a few minutes
+# Ensure tidyverse is installed by running the following (commented) line in an interactive R session:
+#install.packages("tidyverse") # This can take a few minutes
 
 # Create a directory in $SCRATCH if it doesn't already exist
 out_dir="$SCRATCH/gtdb_versions"
