@@ -1,5 +1,6 @@
 # Code Repository for Giurleo et al. bioRxiv, 2026
-Code used to analyze metagenomic samples derived from human fecal samples (Giurleo et al., bioRxiv, 2026).<br>
+Repository for code used in the Castagner Lab (McGill University) for the analysis of metagenomic samples derived from human fecal samples.<br>
+<br>
 The general workflows involve read QC, human read removal, relative abundance determination, contig assembly, protein prediction, and protein searching against databases.
 <br>
 
