@@ -14,7 +14,7 @@ df = pd.read_csv(df_path, sep="\t", header=None,
 	names=["qseqid","sseqid","pident","ppos","length","qlen","slen","qstart","qend","sstart","send","evalue","bitscore","full_qseq","full_sseq"])
 
 # Filter by best hit(s) and keep the first instance of a best hit (by sseqid) if there's a tie
-best_hits_df = df.loc[df.groupby('sseqid')['pident'].idxmax()]
+best_hits_df = df.loc[df.groupby("sseqid")["pident"].idxmax()]
 best_hits_df = best_hits_df.reset_index(drop=True)
 
 # Export table to TSV
