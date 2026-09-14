@@ -3,7 +3,7 @@
 #SBATCH --job-name=fastp_bt2
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
-#SBATCH --time=14:00:00
+#SBATCH --time=3:30:00
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=100G
 
