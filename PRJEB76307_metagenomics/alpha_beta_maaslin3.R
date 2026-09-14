@@ -1,7 +1,7 @@
-# Make sure R version >= 4.4
-# Current version 4.4.2
+#!/usr/bin/env Rscript
 
 # Ensure that "remotes" and "biobakery/maaslin3" are already installed via BiocManager
+
 # Load libraries
 library(maaslin3)
 library(dplyr)
