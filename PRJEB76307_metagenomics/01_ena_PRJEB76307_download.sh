@@ -17,6 +17,8 @@ mkdir -p "${read_dir}"
 cd "${read_dir}"
 #===========================================================================
 
+echo "Starting donwload of PRJEB76307 sequencing reads"
+
 # Download the raw sequencing data from PRJEB76307 from a list of urls
 parallel -j 8 wget -nc :::: "${scripts_dir}/ena_PRJEB76307_urls.txt"
 
