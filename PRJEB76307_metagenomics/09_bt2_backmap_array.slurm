@@ -13,7 +13,7 @@ set -euo pipefail
 # Define common variables
 #===========================================================================
 project_dir="$SCRATCH/PRJEB76307_MGX"
-sample_dir="${project_dir}/fastp_bt2_qc/bt2_out" # This directory contains 66 sample directories containing paired-end reads R1 and R2 (after removing reads mapped to the human genome
+sample_dir="${project_dir}/fastp_bt2_qc/bt2_out" # This directory contains 66 sample directories containing paired-end reads R1 and R2 (after removing reads mapped to the human genome)
 scripts_dir="$SCRATCH/castalagin_stool_metagenomics/PRJEB76307_metagenomics" # Scripts from repository
 megahit_dir="${project_dir}/megahit_co_out" # Contains contigs from the assembly step
 
