@@ -20,4 +20,4 @@ parallel -j 3 wget ::: "${gtdb_r202}" "${gtdb_r207}" "${gtdb_r232}"
 
 # After these are downloaded, schedule a job to untar & unzip the database
 echo "Scheduling a job to set extract files and merge GTDB metadata"
-sbatch "${scripts_dir}/gtdb_version_consolidation.slurm"
+sbatch "${scripts_dir}/gtdb_version_consolidation.slurm" # Note that the R script can also be executed interactively using salloc --mem=16G
