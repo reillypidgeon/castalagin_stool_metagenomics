@@ -1,4 +1,4 @@
-# Note on running the code in this directory
+# Note on running the R code in this directory
 The `gtdb_version_consolidation.R` script in this directory can be run in RStudio if desired. The directory containing the 3 metadata tables will need to be specified or the working directory can be changed using the `setwd` command. <br>
 There are also full download (`01_gtdb_version_consolidation.sh`) and setup (`gtdb_version_consolidation.slurm`) scripts available for a DRAC cluster. <br>
 
