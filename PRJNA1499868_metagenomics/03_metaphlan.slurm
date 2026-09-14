@@ -3,7 +3,7 @@
 #SBATCH --job-name=metaphlan
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
-#SBATCH --time=6:00:00
+#SBATCH --time=2:00:00
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=100G
 
