@@ -99,7 +99,7 @@ if (!require("BiocManager", quietly = TRUE))
 BiocManager::install("remotes")
 BiocManager::install("biobakery/maaslin3")
 install.packages(c("dplyr", "readr", "tibble", "stringr", "vegan", "ggplot2"))
-# For the CRAN mirrors, select 13 for Canada (ON 2) [https]
+# For the CRAN mirrors, select #1
 ```
 
 ### Tools and packages used in analyses
@@ -122,11 +122,11 @@ install.packages(c("dplyr", "readr", "tibble", "stringr", "vegan", "ggplot2"))
   17. diamond (version 2.1.11)
   18. dplyr (version 1.2.1)
   19. readr (version 2.2.0)
-  20. maaslin3 (version)
-  21. tibble (version)
-  22. stringr (version)
+  20. maaslin3 (version 1.5.6)
+  21. tibble (version 3.3.1)
+  22. stringr (version )
   23. vegan (version)
-  24. ggplot2 (version)
+  24. ggplot2 (version 4.0.3)
 
 ## LICENSE
 GNU GENERAL PUBLIC LICENSE (Version 3, 29 June 2007) <br>
