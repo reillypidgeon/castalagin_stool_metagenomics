@@ -1,8 +1,7 @@
 #!/usr/bin/env Rscript
 
 # Load libraries
-library(dplyr)
-library(readr)
+library(tidyverse) # dplyr and readr
 
 # Go to the directory that contains all the metadata files for different GTDB release versions (should be the current directory)
 # These metadata tables were downloaded from: https://data.gtdb.ecogenomic.org/releases/
