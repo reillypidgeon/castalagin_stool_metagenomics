@@ -92,6 +92,16 @@ sbatch 02_fastp_bt2_qc.slurm
 > - Numbered scripts that end with `.slurm` should be run using the `sbatch` command
 > - Other scripts are called by the numbered scripts
 
+R scripts in some of the analyses require multiple libraries to work properly. These need to be installed beforehand, which can be done in an interactive R session (in your DRAC cluster) with the following code:
+```
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("remotes")
+BiocManager::install("biobakery/maaslin3")
+install.packages(c("dplyr", "readr", "tibble", "stringr", "vegan", "ggplot2"))
+# For the CRAN mirrors, select 13 for Canada (ON 2) [https]
+```
+
 ### Tools and packages used in analyses
   1. python (version 3.13.2)
   2. r (version 4.6.1)
