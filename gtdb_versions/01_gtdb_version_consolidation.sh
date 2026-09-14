@@ -4,6 +4,9 @@
 # From the login node (internet access needed)
 scripts_dir="$SCRATCH/castalagin_stool_metagenomics/gtdb_versions"
 
+# Ensure tidyverse is installed by running the following line in an interactive R session:
+install.packages("tidyverse") # This can take a few minutes
+
 # Create a directory in $SCRATCH if it doesn't already exist
 out_dir="$SCRATCH/gtdb_versions"
 mkdir -p "${out_dir}"
@@ -17,13 +20,6 @@ gtdb_r232="${base_url}/release232/232.0/bac120_metadata_r232.tsv.gz"
 
 # Download the required files using parallel wget
 parallel -j 3 wget ::: "${gtdb_r202}" "${gtdb_r207}" "${gtdb_r232}"
-
-# Download and install tidyverse if not already done
-module load StdEnv/2023 gcc/12.3 r/4.6.1
-
-Rscript << 'EOF'
-if (!requireNamespace("tidyverse", quietly = TRUE)) {install.packages("tidyverse")}
-EOF
 
 # After these are downloaded, schedule a job to untar & unzip the database
 echo "Scheduling a job to set extract files and merge GTDB metadata"
