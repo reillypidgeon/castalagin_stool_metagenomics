@@ -20,7 +20,7 @@ gunzip bac120_metadata_r232.tsv.gz
 rm *.tar.gz
 
 # Load modules
-module load r/4.6.1 gcc/12.3
+module load gcc/12.3 r/4.6.1
 
 # Merge the metadata tables using the R script
 Rscript "${scripts_dir}/gtdb_version_consolidation.R"
