@@ -30,7 +30,7 @@ Scripts, metadata, and tables used in the analysis of metagenomic sequencing dat
 - `09_bt2_backmap_array.slurm`: Shell (slurm) script to map quality-controlled reads onto contigs from co-assemblies (for all samples)
 - `10_featurecounts_array.slurm`: Shell (slurm) script to count reads mapping to protein-coding sequences, then to determine the relative abundance as reads per kb per million mapped reads (RPKM) and transcripts per million (TPM)
 - `11_RPKM_TMP_merge.slurm`: Shell (slurm) script to merge RPKM and TPM relative abundance tables (for all samples)
-- Multiple utility scripts (`.py` and `.slurm`)
+- Multiple Python and SLURM scripts (`.py` and `.slurm`)
 - `alpha_beta_maaslin3.R`: R script used to analyze MetaPhlAn output
 - `ena_PRJEB76307_urls.txt`: List of URLs for the download script
 - `sample_metadata.tsv`: Sample metadata for the `alpha_beta_maaslin3.R` script
@@ -47,7 +47,7 @@ Scripts, metadata, and tables used to analyze metagenomic sequencing data from f
 - `03_metaphlan.slurm`: Shell (slurm) script to determine relative abundance of taxa
 - `04_megahit_prodigal.slurm`: Shell (slurm) script to assemble reads into contigs and predict proteins
 - `05_diamond_uhgp.slurm`: Shell (slurm) script to search user-defined queries (`queries.faa`) against predicted proteins, then to search the best-hits FASTA file against the UHGP database
--  Multiple utility scripts (`.py` and `.slurm`)
+-  Multiple Python and SLURM scripts (`.py` and `.slurm`)
 -  `queries.faa`: Query FASTA file for diamond search
 -  `string_pattern_mapping.tsv`: Table of additional metadata to add to tables based on partial string matching
 
@@ -57,7 +57,7 @@ These scripts require internet access for the download portion, then schedule jo
 - `01_metaphlan_db_download.sh`: Shell script to download and set up the MetaPhlAn database (version mpa_vJun23_CHOCOPhlAnSGB_202403), which uses [GTDB release 207](https://github.com/biobakery/MetaPhlAn/blob/master/metaphlan/utils/mpa_vJun23_CHOCOPhlAnSGB_202403_SGB2GTDB_r207.tsv), for relative abundance determination
 - `02_uhgp_download.sh`: Shell script to download and set up the Unified Human Gastrointestinal Proteome diamond database (version 2.0.2), which uses [GTDB release 202](https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/human-gut/v2.0.2/README_v2.0.2.txt), for predicted protein matching
 - `03_t2t_hg39_setup.sh`: Shell script to download and set up the Telomere-to-Telomere (t2t) human genome (version GCF_009914755.1_T2T-CHM13v2.0) bowtie2 database for human read removal
-- Multiple utility scripts (`.slurm`)
+- Multiple SLURM scripts (`.slurm`)
 
 ### gtdb_versions
 - '01_gtdb_version_consolidation.sh: Shell script to download GTDB metadata tables for releases 202, 207, 232
