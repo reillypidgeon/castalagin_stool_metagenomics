@@ -3,7 +3,7 @@
 #SBATCH --job-name=PRJEB76307_setup
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
-#SBATCH --time=00:15:00
+#SBATCH --time=00:05:00
 #SBATCH --mem=16G
 
 set -euo pipefail
@@ -23,6 +23,8 @@ for file in *.fastq.gz; do
 	# Extract the short file name and rename the file
 	new_file_name=$(echo $file | grep -Eo "0[0-9]{2}_V[1-4]_R[1-2]\.fastq\.gz")
 	echo ${new_file_name}
+
+	# Move the renamed file into the new directory
 	mv $file "${subject_id}/${new_file_name}"	
 done
 
