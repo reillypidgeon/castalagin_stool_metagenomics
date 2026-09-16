@@ -17,7 +17,7 @@ mkdir -p "${read_dir}"
 cd "${read_dir}"
 #===========================================================================
 
-echo "Starting donwload of PRJEB76307 sequencing reads"
+echo "Starting download of PRJEB76307 sequencing reads"
 
 # Download the raw sequencing data from PRJEB76307 from a list of urls
 if ! parallel -j 8 \
