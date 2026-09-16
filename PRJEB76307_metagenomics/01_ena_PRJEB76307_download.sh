@@ -35,7 +35,7 @@ while IFS= read -r line; do
     processed_file="${subject_id}/${new_file_name}"
     
     if [[ -f "${processed_file}" ]]; then
-        echo "Genome ${new_file_name} has already been processed. Skipping..."
+        echo "File ${new_file_name} has already been processed. Skipping..."
         continue
     else
         echo "Adding ${new_file_name} to the list of URLs to download"
