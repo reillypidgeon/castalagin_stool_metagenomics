@@ -2,6 +2,10 @@
 # Log in to the Digital Research Alliance of Canada Narval Cluster
 # From the login node (internet access needed)
 
+# IMPORTANT: These files can also be downloaded via Globus via the EMBL-EBI Public Data collection
+# The links are the same as in the $urls_file
+# Do this if you run into any issues with the downloads
+
 set -euo pipefail
 
 # Define variables
