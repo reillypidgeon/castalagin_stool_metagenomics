@@ -3,8 +3,9 @@
 # From the login node (internet access needed)
 
 # IMPORTANT: These files can also be downloaded via Globus via the EMBL-EBI Public Data collection
-# The links are the same as in the $urls_file
-# Do this if you run into any issues with the downloads
+# The links are effectively the same as in the $urls_file (without the FTP portion)
+# Do this if you run into any issues with the downloads using this script and the wget command
+# See ena_PRJEB76307_globus_download.md for an interactive tutorial on the Globus CLI (if you don't want to use the Globus User Interface)
 
 set -euo pipefail
 
