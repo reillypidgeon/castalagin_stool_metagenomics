@@ -19,7 +19,7 @@ Scripts, metadata, and tables used in the analysis of metagenomic sequencing dat
 >ENA accession: [PRJEB76307](https://www.ebi.ac.uk/ena/browser/view/PRJEB76307) <br>
 >Clinical trial accession: [NCT04130321](https://clinicaltrials.gov/study/NCT04130321) <br>
 
-- `01_ena_PRJEB76307_download.sh`: Shell script to download metagenomic sequencing reads from the NCT04130321 clinical trial
+- `01_ena_PRJEB76307_download.sh`: Shell script to download metagenomic sequencing reads from the NCT04130321 clinical trial. Note that there is an alternative interactive tutorial that uses the Globus CLI (`ena_PRJEB76307_globus_download.md`), which is much faster, but requires some setup.
 - `02_fastp_bt2_qc_array.slurm`: Shell (slurm) script to trim reads and remove host reads
 - `03_metaphlan_array.slurm`: Shell (slurm) script to determine relative abundance of taxa
 - `04_metaphlan_merge.slurm`: Shell (slurm) script to merge MetaPhlAn relative abundance tables (for all samples) and perform alpha diversity, beta diversity, and [MaAsLin3](https://github.com/biobakery/maaslin3) (Microbiome Multivariable Associations with Linear Models) analyses
@@ -33,6 +33,7 @@ Scripts, metadata, and tables used in the analysis of metagenomic sequencing dat
 - Multiple Python and SLURM scripts (`.py` and `.slurm`)
 - `alpha_beta_maaslin3.R`: R script used to analyze MetaPhlAn output
 - `ena_PRJEB76307_urls.txt`: List of URLs for the download script
+- `ena_PRJEB76307_globus_download.md`: Tutorial to download metagenomic sequencing reads from the NCT04130321 clinical trial using the Globus CLI tool.
 - `sample_metadata.tsv`: Sample metadata for the `alpha_beta_maaslin3.R` script
 - `queries.faa`: Query FASTA file for diamond search
 - `string_pattern_mapping.tsv`: Table of additional metadata to add to tables based on partial string matching
