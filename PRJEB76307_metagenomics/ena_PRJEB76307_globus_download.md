@@ -118,15 +118,15 @@ done < "${urls_file_to_download}"
 globus transfer $embl $cluster --batch ${scripts_dir}/ena_PRJEB76307_globus_batch.txt
 
 echo "Finished downloading reads"
-
-# Submit a scheduled job for FASTQ conversion
+```
+You can check on the status of a transfer using:
+```
+globus task show <TASK_ID>
+```
+Once the reads are done downloading, you can run the ena_PRJEB76307_setup.slurm script (in castalagin_stool_metagenomics/PRJEB76307_metagenomics/)
+```
+# Submit a scheduled job for FASTQ renaming and transfer to directories by sample ID
 echo "Submitting scheduled job to set up FASTQ files for array jobs"
 sbatch "${scripts_dir}/ena_PRJEB76307_setup.slurm"
-
 ```
-
-
-
-
-
-
+After all these steps, you should have 66 directories containing read sets (R1 and R2) for a total of 132 files!
