@@ -108,7 +108,7 @@ fi
 
 # Create a batch file for the Globus CLI tool using the $urls_file for all files that have not yet been downloaded and processed
 while IFS= read -r line; do
-    embl_path=$(echo "$line" | grep -Eo "vol1/run/[^ ]*")
+    embl_path=$(echo "$line" | grep -Eo "vol1/run/ERR132/[^ ]*")
     file_name=$(basename ${embl_path})
     batch_line="${embl_path} ${read_dir}/${file_name}"
     echo "${batch_line}" >> "${scripts_dir}/ena_PRJEB76307_globus_batch.txt"
