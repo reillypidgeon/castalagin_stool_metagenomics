@@ -48,7 +48,7 @@ fi
 # Download the raw sequencing data from PRJEB76307 from a list of urls
 if ! parallel -j 6 \
     --joblog "${scripts_dir}/wget.log" \
-    wget -nc :::: "${urls_file_to_download}"
+    wget -c :::: "${urls_file_to_download}"
 then
     echo "Warning: One or more downloads failed."
     echo "See ${scripts_dir}/wget.log for details."
