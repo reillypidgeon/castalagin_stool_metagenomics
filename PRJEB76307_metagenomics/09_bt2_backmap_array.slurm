@@ -49,14 +49,18 @@ echo "R2: $R2"
 echo "Megahit co-assembly path: $assembly"
 
 # Load modules
-module load StdEnv/2023 bowtie2/2.5.4 samtools/1.22.1 python/3.13.2
+module load StdEnv/2023 bowtie2/2.5.4 samtools/1.22.1 python/3.11.5 # Required by bowtie2/2.5.4
 echo "Modules loaded"
 
 # Build a bowtie2 index using the megahit co-assembly for each subject_id
-if [ ! -e "${bt2_sample_id_dir}/index_${subject_id}.1.bt2" ] && [ ! -e "${bt2_sample_id_dir}/index_${subject_id}.1.bt2l" ]; then
-	echo "Bowtie2 index for ${subject_id} not found
-	echo "Building one from $assembly"
-	bowtie2-build "$assembly" "${bt2_sample_id_dir}/index_${subject_id}"
+if [[ ! -e "${bt2_sample_id_dir}/index_${subject_id}.1.bt2" ]] && 
+    [[ ! -e "${bt2_sample_id_dir}/index_${subject_id}.1.bt2l" ]]; then
+    echo "Bowtie2 index for ${subject_id} not found"
+    echo "Building one from $assembly"
+    bowtie2-build "$assembly" "${bt2_sample_id_dir}/index_${subject_id}"
+else
+    echo "Bowtie2 index already exists"
+    ls "${bt2_sample_id_dir}"
 fi
 
 # Define bt2 output as variable
