@@ -3,7 +3,7 @@
 #SBATCH --job-name=diamond_co
 #SBATCH --output=%x_%A_%a.out
 #SBATCH --error=%x_%A_%a.err
-#SBATCH --time=00:30:00
+#SBATCH --time=00:02:00
 #SBATCH --array=0-32
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=48G
