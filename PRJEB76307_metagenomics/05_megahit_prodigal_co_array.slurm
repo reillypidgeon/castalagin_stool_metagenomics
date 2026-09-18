@@ -3,7 +3,7 @@
 #SBATCH --job-name=megahit_prodigal_co
 #SBATCH --output=%x_%A_%a.out
 #SBATCH --error=%x_%A_%a.err
-#SBATCH --time=10:00:00
+#SBATCH --time=13:00:00
 #SBATCH --array=1-33
 #SBATCH --cpus-per-task=12
 #SBATCH --mem=120G
