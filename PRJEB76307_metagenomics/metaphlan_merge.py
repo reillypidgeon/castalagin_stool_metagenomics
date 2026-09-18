@@ -9,7 +9,7 @@ dfs = []
 
 # Loop through the MetaPhlAn output directory and add the sample_id to the relative abundance column for each GTDB results table
 for file in glob.glob("*_GTDB.tsv"):
-    sample = os.path.basename(file).replace("_metaphlan_out_GTDB.txt", "")
+    sample = os.path.basename(file).replace("_metaphlan_out_GTDB.tsv", "")
     df = pd.read_csv(file, sep="\t", comment="#", header=None, names=["GTDB_taxonomy", sample], index_col=0)
     dfs.append(df)
 
