@@ -76,8 +76,16 @@ cd $SCRATCH
 
 git clone https://github.com/reillypidgeon/castalagin_stool_metagenomics.git
 ```
-
-You can then run scripts from the individual directories in the cloned repository.
+R scripts in some of the analyses require multiple libraries to work properly. These need to be installed beforehand, which can be done in an interactive R session (in your DRAC cluster) with the following code:
+```
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("remotes")
+BiocManager::install("biobakery/maaslin3")
+install.packages(c("dplyr", "readr", "tibble", "stringr", "vegan", "ggplot2"))
+# For the CRAN mirrors, select #1
+```
+You can then run scripts from the individual directories in the cloned repository. These scripts are set up to work without any positional input. As long as the repository is cloned into your `$SCRATCH` directory, the scripts should work.
 ```
 # For a database download
 cd castalagin_stool_metagenomics/database_downloads
@@ -92,16 +100,6 @@ sbatch 02_fastp_bt2_qc.slurm
 > - Numbered scripts that end with `.sh` should be run using the `bash` command since they require internet access for downloads
 > - Numbered scripts that end with `.slurm` should be run using the `sbatch` command
 > - Other scripts are called by the numbered scripts
-
-R scripts in some of the analyses require multiple libraries to work properly. These need to be installed beforehand, which can be done in an interactive R session (in your DRAC cluster) with the following code:
-```
-if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-BiocManager::install("remotes")
-BiocManager::install("biobakery/maaslin3")
-install.packages(c("dplyr", "readr", "tibble", "stringr", "vegan", "ggplot2"))
-# For the CRAN mirrors, select #1
-```
 
 ### Tools and packages used in analyses
   1. python (version 3.13.2)
