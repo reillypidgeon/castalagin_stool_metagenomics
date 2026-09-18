@@ -17,7 +17,7 @@ for file in glob.glob("*_GTDB.tsv"):
 merged_df = pd.concat(dfs, axis=1).fillna(0)
 
 # Sort sample columns alphabetically
-merged_df_sorted = merged_df.reindex(sorted(merged.columns), axis=1)
+merged_df_sorted = merged_df.reindex(sorted(merged_df.columns), axis=1)
 
 # Write output to TSV file
 merged_df_sorted.to_csv("merged_metaphlan_GTDB.tsv", sep="\t")
