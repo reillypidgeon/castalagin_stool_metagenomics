@@ -40,10 +40,10 @@ rpk_sum = df["RPK"].sum()
 df["TPM"] = (df["RPK"] / rpk_sum) * 1e6
 
 # Add the subject and sample metadata to each dataframe
-df["subject"] = subject_id
-df["sample"] = sample_id
+df["subject_id"] = subject_id
+df["sample_id"] = sample_id
 
 # Write output to TSV
-df[["gene_id", "counts", "length_bp", "RPKM", "TPM", "patient", "sample"]].to_csv(out_file, sep="\t", index=False)
+df[["gene_id", "counts", "length_bp", "RPKM", "TPM", "subject_id", "sample_id"]].to_csv(out_file, sep="\t", index=False)
 
 print("Conversion finished")
