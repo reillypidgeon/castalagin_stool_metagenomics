@@ -11,5 +11,5 @@ gtdb_r232="${base_url}/release232/232.0/bac120_metadata_r232.tsv.gz"
 Full download (`01_gtdb_version_consolidation.sh`) and setup (`gtdb_version_consolidation.slurm`) scripts are also available for a DRAC cluster. <br>
 
 In all cases, the following libraries are required: `dplyr` and `readr`. <br>
-If these packages have [not yet been installed](../README.md#Usage), run the following in an interactive R session: `install.packages(c('dplyr', 'readr'))`.
+If these packages have [not yet been installed](../README.md#Usage), run the following commands in an interactive R session: `install.packages(c('dplyr', 'readr'))`.
 Libraries can then be loaded using `library(dplyr)` and `library(readr)` in the R session (already done in the R script).
