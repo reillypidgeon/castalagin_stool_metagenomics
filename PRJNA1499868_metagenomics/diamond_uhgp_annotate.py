@@ -8,6 +8,7 @@ import os
 diamond_uhgp_dir = os.getenv("diamond_uhgp_dir")
 hits_tsv = os.getenv("hits_tsv")
 metadata = os.getenv("metadata")
+sample_id = os.getenv("sample_id")
 
 # Import the dataframes and add titles to the columns
 df = pd.read_csv(hits_tsv, sep="\t", header=None,
@@ -29,5 +30,5 @@ best_hits_df_merge = df_merge.loc[df_merge.groupby("qseqid")["pident"].idxmax()]
 best_hits_df_merge = best_hits_df_merge.reset_index(drop=True)
 
 # Export tables to TSV
-df_merge.to_csv(f"{diamond_uhgp_dir}/all_hits_uhgp-100_metadata.tsv", sep="\t", index=False)
-best_hits_df_merge.to_csv(f"{diamond_uhgp_dir}/best_hits_uhgp-100_metadata.tsv", sep="\t", index=False)
+df_merge.to_csv(f"{diamond_uhgp_dir}/{sample_id}_all_hits_uhgp-100_metadata.tsv", sep="\t", index=False)
+best_hits_df_merge.to_csv(f"{diamond_uhgp_dir}/{sample_id}_best_hits_uhgp-100_metadata.tsv", sep="\t", index=False)
