@@ -3,7 +3,7 @@
 #SBATCH --job-name=RPKM_TPM_merge
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
-#SBATCH --time=00:10:00
+#SBATCH --time=00:20:00
 #SBATCH --mem=16G
 
 set -euo pipefail
