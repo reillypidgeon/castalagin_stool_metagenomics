@@ -132,6 +132,6 @@ python3 "${scripts_dir}/diamond_uhgp_annotate.py"
 echo "Finished merging the diamond UHGP table with UHGP metadata"
 
 # Match patterns (in the best-hits table) from query FASTA headers to extract operon and gene names based on the pattern_mapping.tsv file
-python3 "${scripts_dir}/string_pattern_mapping.py" "${diamond_uhgp_dir}/best_hits_uhgp-100_metadata.tsv" "${scripts_dir}/pattern_mapping.tsv" "${diamond_uhgp_dir}/best_hits_uhgp-100_metadata_operon.tsv"
+python3 "${scripts_dir}/string_pattern_mapping.py" "${diamond_uhgp_dir}/${sample_id}_best_hits_uhgp-100_metadata.tsv" "${scripts_dir}/pattern_mapping.tsv" "${diamond_uhgp_dir}/${sample_id}_best_hits_uhgp-100_metadata_operon.tsv"
 
 echo "Finished annotating the UHGP best hits table with gene and operon information"
