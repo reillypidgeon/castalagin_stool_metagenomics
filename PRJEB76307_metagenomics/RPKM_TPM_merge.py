@@ -3,9 +3,10 @@
 import pandas as pd
 import glob
 import os
+from pathlib import Path
 
 # Define the base directory based on the exported variable
-base_dir = os.getenv("fc_ra_dir")
+base_dir = Path(os.getenv("fc_ra_dir"))
 
 # Create an empty array
 dfs = []
