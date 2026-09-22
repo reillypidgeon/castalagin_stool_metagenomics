@@ -104,7 +104,7 @@ mkdir -p "${diamond_uhgp_dir}"
 # Set the diamond tool input, database, and output file names
 query="${diamond_dir}/${sample_id}_best_hits.fasta"
 uhgp_dir="$SCRATCH/uhgp" # See castalagin_stool_metagenomics/database_downloads/02_uhgp_download.sh
-hits_tsv="${diamond_uhgp_dir}/all_hits_uhgp-100.tsv"
+hits_tsv="${diamond_uhgp_dir}/${sample_id}_all_hits_uhgp-100.tsv"
 metadata="${uhgp_dir}/uhgp_genomes_all_metadata.tsv"
 #===========================================================================
 
