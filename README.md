@@ -10,7 +10,7 @@ The general workflows involve read QC, human read removal, relative abundance de
 > - Some paths are hardcoded starting from the `$SCRATCH` directory (`/home/username/scratch`) to minimize the need for user input
 
 ## Citation
-TBD <br>
+BioRxiv TBD <br>
 
 ## Directory Overview
 ### PRJEB76307_metagenomics
