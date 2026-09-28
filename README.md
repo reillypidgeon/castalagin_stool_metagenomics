@@ -11,6 +11,7 @@ The general workflows involve read QC, human read removal, relative abundance de
 
 ## Citation
 BioRxiv TBD <br>
+Zenodo [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23018167.svg)](https://doi.org/10.5281/zenodo.23018167)
 
 ## Directory Overview
 ### PRJEB76307_metagenomics
